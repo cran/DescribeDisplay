@@ -1,0 +1,25 @@
+Here is what I meant in my last e-mail when I wrote about a  
+"cleaner" version of writeGGobiXML... The main drawback the one you  
+saw had is that is was tailored for the kind of objects I work with  
+and not for "general" data frames or matrices. I've changed that in  
+the attached version (within file GGobiAndR.R). I attach also the  
+vignette (GGobiAndR.Rnw) and the manual/tutorial (obtained with  
+Sweave("GGobiAndR.Rnw")). If you want to run the vignette on your  
+onw machine you just need to change line 77 so that the path of  
+ggobi/data folder on your machine appears on the command line.
+
+You are (of course) free to modify and distribute this stuff as you  
+want.
+
+cheers,
+
+Christophe.
+
+Christophe Pouzat
+Laboratoire de Physiologie Cerebrale
+CNRS UMR 8118
+UFR biomedicale de l'Universite Paris V
+45, rue des Saints Peres
+75006 PARIS
+France
+

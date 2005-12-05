@@ -1,0 +1,582 @@
+\documentclass[12pt,english,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{cmbright}
+\usepackage{url}
+\usepackage[pagebackref=true,colorlinks=true]{hyperref}
+\usepackage{geometry}
+\geometry 
+{tmargin=2cm,bmargin=2.5cm,lmargin=2cm,rmargin=2cm,headheight=0.5cm,he 
+adsep=0.5cm,footskip=0.5cm}
+\usepackage{graphicx}
+\usepackage{makeidx}
+\usepackage{cite}
+
+\newcommand{\R}{\texttt{R}~}
+\newcommand{\G}{\texttt{GGobi}~}
+\newcommand{\GX}{\texttt{GGobi XML}~}
+\newcommand{\RGX}{\texttt{readGGobiXML}~}
+\newcommand{\WGX}{\texttt{writeGGobiXML}~}
+\newcommand{\LG}{\texttt{likeGGobi}~}
+
+\title{How to Use \RGX, \LG and \WGX}
+
+\author{Christophe Pouzat}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+
+Functions \RGX, \LG and \WGX are \R functions designed to help  
+users who
+want to use \G together with  \R and vice versa in a ``simple''
+way. For a more sophisticated one, check the \texttt{Rggobi} package.
+In short:
+\begin{itemize}
+\item \RGX allows you to read into \R and to manipulate \GX files.
+\item \LG generates plots looking like \G plots. That's useful for a
+  report or a publication.
+\item \WGX writes to a file in \GX format a \R \texttt{matrix} or
+  \texttt{data frame}.
+\end{itemize}
+
+You load the functions into the \R workspace with:
+
+<<source GGobiAndR>>=
+myURL <- "http://www.biomedicale.univ-paris5.fr/physcerv/C_Pouzat/"
+myURL <- paste(myURL, "Code_folder/GGobiAndR.R", sep = "")
+source(myURL)
+@
+
+\section{Read GGobi XML files into R}
+
+Function \RGX allows \R users to load \G data saved in XML format into
+\R workspace. It requires Duncan Temple Lang's \R package \texttt{XML}
+to be installed.
+
+It takes a single formal argument \texttt{x} which should be:
+\begin{itemize}
+\item a \texttt{character} with the name of a \GX data file  
+(possibly in
+the form of a URL, see below),
+\item an object of class \texttt{XMLDocument}.
+\end{itemize}
+
+We can therefore load the tips and olive oil data sets located on  
+the \G
+\texttt{Book}
+site\footnote{\url{http://www.public.iastate.edu/~dicook/ggobi-book/ 
+ggobi.html}}
+as follows:
+
+<<load data from GGobi Book site>>=
+tips <- readGGobiXML("http://www.public.iastate.edu/~dicook/ggobi- 
+book/tips.xml")
+olive <- readGGobiXML("http://www.public.iastate.edu/~dicook/ggobi- 
+book/olive.xml")
+@
+
+We can also of course read data stored on our hard disk, like, again,
+the olive oil data distributed with \G, they are in the \texttt{data}
+sub-folder of your \G folder:
+
+<<load olive data from GGobi folder>>=
+Olive <- readGGobiXML("/home/xtof/ggobi/data/olive.xml")
+@
+
+The object returned is a \texttt{list} whose components are
+\emph{functions} whose names are:
+
+\begin{itemize}
+\item \texttt{XMLDocument}
+\item \texttt{nbDataSets}
+\item \texttt{dataSetNames}
+\item \texttt{dataSetDescription}
+\item \texttt{nbVariables}
+\item \texttt{variableNames}
+\item \texttt{variableAttrNames}
+\item \texttt{recordAttributes}
+\item \texttt{rangeRealVar}
+\item \texttt{nlevelsCatVar}
+\item \texttt{levelsCatVar}
+\item \texttt{dataFrame}
+\end{itemize}
+
+All these functions have the same \texttt{closure} and are basically
+used to extract information about the \GX data file which has been
+loaded into \R workspace.
+
+\subsection{XMLDocument}
+
+This function takes no argument and returns the ``full'' object of
+class \texttt{XMLDocument} which was loaded (see the documentation of
+package \texttt{XML}). This function is given for users who would want
+to do stuff with the data set that they cannot do directly with the
+other functions of the structure.
+
+<<XMLDocument example, results = hide>>=
+olive$XMLDocument()
+@
+
+\subsection{nbDataSets}
+
+This function takes no argument and returns the number of data sets
+contained in the \G XML data file.
+
+<<nbDataSets example>>=
+tips$nbDataSets()
+olive$nbDataSets()
+@
+
+\subsection{dataSetNames}
+
+This function takes no argument and returns a \texttt{character}
+vector with the names of the data sets
+contained in the \G XML data file.
+
+<<dataSetNames example>>=
+tips$dataSetNames()
+Olive$dataSetNames()
+@
+
+\subsection{dataSetDescription}
+
+This function takes no argument and returns the content of the  
+description (if there
+is one) element of the data sets
+contained in the \G XML data file. The tips and olive oil (from the \G
+book site) data sets have no
+description element but the latter has one in the \G distribution.
+
+<<dataSetDescription example>>=
+tips$dataSetDescription()
+Olive$dataSetDescription()
+@
+
+\subsection{nbVariables}
+
+This function has one formal argument: \texttt{dataSet} which can be
+either of a \texttt{character}, \texttt{integer} or
+\texttt{numeric}. The default value is set to 1. This formal argument
+allows the user to specify which data set he/she is interested in. If
+a \texttt{character} argument is given it should correspond to one of
+the data set names returned by function \texttt{dataSetNames}. The
+function returns the number of variables defined in the \G XML data  
+file.
+
+<<nbVariables example>>=
+tips$nbVariables(tips$dataSetNames()[1])
+Olive$nbVariables()
+Olive$nbVariables(Olive$dataSetNames()[1])
+Olive$nbVariables(1)
+@
+
+\subsection{variableNames}
+This function has one formal argument: \texttt{dataSet} which can be
+either of a \texttt{character}, \texttt{integer} or
+\texttt{numeric}. The default value is set to 1. This formal argument
+allows the user to specify which data set he/she is interested in. If
+a \texttt{character} argument is given it should correspond to one of
+the data set names returned by function \texttt{dataSetNames}.
+The function returns the \texttt{name} of the
+variables that is, either \texttt{variable}, \texttt 
+{integervariable}, \texttt{realvariable} or \texttt 
+{categoricalvariable}.
+
+<<variableNames example>>=
+tips$variableNames(tips$dataSetNames()[1])
+Olive$variableNames(Olive$dataSetNames()[1])
+@
+
+\subsection{variableAttrNames}
+
+This function has one formal argument: \texttt{dataSet} which can be
+either of a \texttt{character}, \texttt{integer} or
+\texttt{numeric}. The default value is set to 1. This formal argument
+allows the user to specify which data set he/she is interested in. If
+a \texttt{character} argument is given it should correspond to one of
+the data set names returned by function \texttt{dataSetNames}.
+The function returns the value of \texttt{name} attribute of the
+variables.
+
+<<variableAttrNames example>>=
+cbind(tips$variableNames(1),
+      tips$variableAttrNames(1)
+      )
+cbind(Olive$variableNames(1),
+      Olive$variableAttrNames(1)
+      )
+@
+
+\subsection{recordAttributes}
+This function has one formal argument: \texttt{dataSet} which can be
+either of a \texttt{character}, \texttt{integer} or
+\texttt{numeric}. The default value is set to 1. This formal argument
+allows the user to specify which data set he/she is interested in. If
+a \texttt{character} argument is given it should correspond to one of
+the data set names returned by function \texttt{dataSetNames}.
+The function returns the \texttt{attributes} of the
+first \texttt{record} of the selected data set, that's a
+\texttt{character} (string).
+
+<<recordAttributes example>>=
+tips$recordAttributes(1)
+Olive$recordAttributes(1)
+@
+
+\subsection{rangeRealVar}
+
+The \G XML data format allows user to specify a range for their
+\texttt{realvariable}(s). Function \texttt{rangeRealVar} takes two
+formal arguments:
+
+\begin{itemize}
+\item \texttt{dataSet} which can be
+either of a \texttt{character}, \texttt{integer} or
+\texttt{numeric}. The default value is set to 1. This formal argument
+allows the user to specify which data set he/she is interested in. If
+a \texttt{character} argument is given it should correspond to one of
+the data set names returned by function \texttt{dataSetNames}.
+\item \texttt{varNameAttr} a \texttt{character} specifying the value
+  of the name attribute of a \texttt{realvariable}.
+\end{itemize}
+
+The function returns a 2 component vector with named elements,
+\texttt{min} and \texttt{max}.
+
+<<rangeRealVar example>>=
+tips$rangeRealVar(1,tips$variableAttrNames(1)[2])
+Olive$rangeRealVar(1,Olive$variableAttrNames(1)[4])
+@
+
+\subsection{nlevelsCatVar}
+
+The \G XML data format allows user to specify the number of \texttt 
+{levels}
+of their
+\texttt{categoricalvariable}(s)\footnote{\G XML data file also allows
+  the levels to be automatically set, like the ``SEX'' variable of the
+tips data set. This feature is not suported yet by \RGX.}. Function  
+\texttt{nlevelsCatVar} takes two
+formal arguments:
+
+\begin{itemize}
+\item \texttt{dataSet} which can be
+either of a \texttt{character}, \texttt{integer} or
+\texttt{numeric}. The default value is set to 1. This formal argument
+allows the user to specify which data set he/she is interested in. If
+a \texttt{character} argument is given it should correspond to one of
+the data set names returned by function \texttt{dataSetNames}.
+\item \texttt{varNameAttr} a \texttt{character} specifying the value
+  of the name attribute of a \texttt{categoricalvariable}.
+\end{itemize}
+
+The function returns the number of levels of the variable:
+
+<<nlevelsCatVar example>>=
+Olive$nlevelsCatVar(1,Olive$variableAttrNames(1)[2])
+@
+
+\subsection{levelsCatVar}
+
+Function \texttt{levelsCatVar} returns the content of the levels
+element of a categorical variable of a specific data set. Like
+functions \texttt{rangeRealVar} and \texttt{nlevelsCatVar} it takes
+two arguments:
+
+\begin{itemize}
+\item \texttt{dataSet} which can be
+either of a \texttt{character}, \texttt{integer} or
+\texttt{numeric}. The default value is set to 1. This formal argument
+allows the user to specify which data set he/she is interested in. If
+a \texttt{character} argument is given it should correspond to one of
+the data set names returned by function \texttt{dataSetNames}.
+\item \texttt{varNameAttr} a \texttt{character} specifying the value
+  of the name attribute of a \texttt{categoricalvariable}.
+\end{itemize}
+
+and it returns a \texttt{character} vector with as many components as
+there are levels in the variable.
+
+<<levelsCatVar>>=
+Olive$levelsCatVar(1,Olive$variableAttrNames(1)[2])
+@
+
+\subsection{dataFrame}
+
+Function \texttt{dataFrame} returns as a data frame the ``data
+content'' of a \G XML data file. It takes three arguments:
+
+\begin{itemize}
+\item \texttt{dataSet} which can be
+  either of a \texttt{character}, \texttt{integer} or
+  \texttt{numeric}. The default value is set to 1. This formal  
+argument
+  allows the user to specify which data set he/she is interested  
+in. If
+  a \texttt{character} argument is given it should correspond to  
+one of
+  the data set names returned by function \texttt{dataSetNames}.
+\item \texttt{selectedVariables} A \texttt{logical} or
+  \texttt{character} argument. If logical it should be set to
+  \texttt{NULL}, its default value. In tht case all the variables are
+  returned in the data frame. If \texttt{character}, it should be a
+  vector specifying the values of the name attributes of the variables
+  of interest.
+\item \texttt{label} a \texttt{logical} argument. If \texttt{TRUE},
+  the default value, the value of the label attribute of the
+  individual records is used to label the rows of the returned data  
+frame.
+\end{itemize}
+
+Let's say we wnat a data frame with the following variables:
+\texttt{Region}, \texttt{palmitic}, \texttt{stearic},
+\texttt{arachidic}, from the olive oil data set distributed with
+\G. We simply type:
+
+<<dataFrame example>>=
+OliveDF <- Olive$dataFrame(1, c("Region", "palmitic", "stearic",  
+"arachidic"))
+OliveDF[1:5,]
+sapply(names(OliveDF),function(i) class(OliveDF[,i]))
+@
+
+Here a warning message will appear since the labels of the records
+correspond the levels of the \texttt{AREA} categorical variable and
+are therefore duplicated. Logically, \R does not allow you to give the
+same name to two different rows of a data frame and therefore warns
+you that you tried to do so. The end result is that the rows are  
+simply
+numbered. You can try \RGX on the \texttt{places.xml} data file of  
+the \G
+distribution and see that, in that case, labels are unique.
+
+\section{Generate R Plots Looking Like GGobi Plots}
+
+Function \LG generates a plot. Its formal arguments are:
+
+\begin{itemize}
+
+\item \texttt{x}: A \texttt{data frame} or \texttt{matrix} object.
+
+\item \texttt{grouping}\index{grouping}: A factor specifying the  
+class for each
+  observation. Coerced to factor if necessary. Default: \texttt{NULL}.
+
+\item \texttt{projectionMatrix}\index{projectionMatrix}: A matrix projection matrix (given by the axes or the ``GGobi circle'') Should have as many rows as there are variables in x and 2 or 3 columns containing the numbers given by the ``2D tour proj vals''. If the first 2 values only are given the third one will be computed from the data like \G does it. If rows are missing the matrix is extended with zeros. If \texttt{NULL} (default) the ``projection'' on the first 2 variables is displayed. Checks are made for (closeness to) orthonormality.
+
+\item \texttt{selection}\index{selection}: The levels of grouping to display. By default all levels are shown. Default: \texttt{NULL}.
+
+\item \texttt{colPch}\index{colPch}: A list whose 2 components have as many elements as levels in grouping and 2 columns. Each element corresponds to a level, the first component gives the color, the second the glyph. Default: \texttt{NULL}.
+
+\item \texttt{showLegend}\index{showLegend}: A logical. Should a legend be displayed? Default: \texttt{FALSE}.
+
+\item \texttt{xLegend}\index{xLegend}: A numeric the x position of the legend box. Default: \texttt{NULL}.
+
+\item \texttt{yLegend}\index{yLegend}: A numeric the y position of the legend box. Default: \texttt{NULL}.
+
+\item \texttt{ncolLegend}\index{ncolLegend}: A numeric, the number of columns in the legend box. Default: 2.
+
+\item \texttt{verbose}\index{verbose}: A logical. Controls output to R command window. Default: \texttt{FALSE}. If true, the actual position of the legend box will be printed. If axes are shown in the \G fashion, the position of the center will also be printed. Useful to adjust the positions of these 2 elements.
+
+\item \texttt{showAxes}\index{showAxes}: A logical. Default: \texttt 
+{FALSE}. Should axes be displayed?
+
+\item \texttt{axesPAra}\index{axesPAra}: a named list whose components are: axesRadius, axesX, axesY, axesL. axesRadius controls the radius of the circle in units of the side of the plot (default 0.125), axesX and axesY control the position of the center of the circle with respect to the bottom left corner. Same units as axesRadius. axesL is a cutoff to print axes names on the plot. Only axes whose (unitary vectors) projections are larger than axesL are printed.
+
+\item \texttt{...}: Additional parameters passed to the \texttt{plot}
+  function used internally.
+
+\end{itemize}
+
+Calling simply:
+
+<<likeGGobi 1>>=
+olive <- olive$dataFrame(label=FALSE)
+likeGGobi(olive)
+@
+
+<<export plot likeGGobi1, echo = FALSE, results = hide>>=
+png(file = "likeGGobi1.png")
+dev.set(dev.prev())
+dev.copy(which = dev.list()[length(dev.list())])
+dev.off(dev.list()[length(dev.list())])
+graphics.off()
+@
+
+replaces first the \texttt{list olive} by a \texttt{data frame} containing the data set and then generates a plot (Fig.~\ref {fig:likeGGobi1}) looking somewhat like the one we would get after starting \G and loading the olive oil data set (It also looks like the first figure of the \G manual).
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.65\textwidth]{likeGGobi1}
+    \caption{Plot generated by: \texttt{likeGGobi(olive)}.\label 
+{fig:likeGGobi1}}
+  \end{center}
+\end{figure}
+
+What we will try to do now is to generate a plot looking like the
+third panel of Fig. 5.5 of the \texttt{GGobi Book}\footnote{In chapter
+  ``Supervised Classification'', p 54. The book is available from:
+  \url{http://www.public.iastate.edu/~dicook/ggobi-book/ggobi.html}}
+In order to get it we must project our
+10 dimensional data set (``Region'', ``Area'' plus the 8 fatty  
+acids) onto a 2D plan as \G did it. If you look at the
+bottom right corner of Fig. 5.5 right panel you will see
+that \G displays a bunch of numbers. These are the values of the
+projections of the unitary vectors of the original space projected
+onto the abscissa and ordinate of the figure. The circle with segments
+on the left side is a graphical way to represent these projections,
+check Chap. 3 (``The Toolbox'') , pp 30-31 of the \texttt{GGobi Book}
+for more details about that. So we are first going to create a
+projection matrix by reading these numbers. In doing that we do not
+forget that Fig. 5.5 was obtained from a
+tour on the \emph{8 fatty acids only, the Region and Area variables
+  were not included}. We have
+therefore 8 lines on the bottom right corner of the figure. But we
+have in fact a 10 dimensional original space which means that these
+lines have to be complemented (by zeros) for our projection matrix to
+be complete:
+
+<<projection matrix>>=
+fig5p5ProjMatX <- c 
+(0,0,-0.036,0.055,0.029,0.678,-0.576,0.050,-0.236,0.382)
+fig5p5ProjMatY <- c 
+(0,0,0.027,-0.015,0.033,0.348,-0.194,-0.035,-0.021,-0.915)
+fig5p5ProjMat <- cbind(fig5p5ProjMatX,fig5p5ProjMatY)
+rownames(fig5p5ProjMat) <- names(olive)
+@
+
+We can then generate the plot. We want to see points colored according
+to the ``Region'' as on Fig. 5.5. We will therefore have to set
+properly the \texttt{grouping} argument. This time we will set the
+\texttt{verbose} argument to \texttt{TRUE} to have a feed-back on the
+location of the ``Axis circle'' we will also set
+\texttt{showAxes} to \texttt{TRUE} to see the axis and
+\texttt{showLegend} to \texttt{TRUE} to adjust our glyphs and colors:
+<<likeGGobi 2>>=
+likeGGobi(olive, olive[,"Region"], fig5p5ProjMat, showLegend =  
+TRUE, showAxes = TRUE, verbose = TRUE)
+@
+<<export plot likeGGobi1, echo = FALSE, results = hide>>=
+png(file = "likeGGobi2.png")
+dev.set(dev.prev())
+dev.copy(which = dev.list()[length(dev.list())])
+dev.off(dev.list()[length(dev.list())])
+graphics.off()
+@
+
+The result is shown on Fig.~\ref{fig:likeGGobi2}. That's not too bad
+but we would like to change the colors and glyphs to make them look
+like the one of Fig. 5.5.
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.65\textwidth]{likeGGobi2}
+    \caption{Getting closer to Fig. 5.5.\label{fig:likeGGobi2}}
+  \end{center}
+\end{figure}
+We can get a graphical display of the available \R glyphs with:
+\begin{Schunk}
+\begin{Sinput}
+ example(points)
+\end{Sinput}
+\end{Schunk}
+Using that we can set the \texttt{colPch} argument. We will also use
+the info about the location of the axis circle outputed by \LG to set
+argument \texttt{axesPara}:
+
+<<Setting colPch and axesPara>>=
+myColPch <- list(c("red","green","purple"),rep(19,3))
+myAxesPara <- list(axesRadius=0.125,axesX=0.135,axesY=0.9, axesL=0.1)
+@
+
+We are now ready to generate our Fig. 5.5 replicate:
+<<likeGGobi 3>>=
+likeGGobi(olive, olive[,"Region"], fig5p5ProjMat, showAxes = TRUE,  
+colPch = myColPch, axesPara = myAxesPara)
+@
+<<export plot likeGGobi1, echo = FALSE, results = hide>>=
+png(file = "likeGGobi3.png")
+dev.set(dev.prev())
+dev.copy(which = dev.list()[length(dev.list())])
+dev.off(dev.list()[length(dev.list())])
+graphics.off()
+@
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.65\textwidth]{likeGGobi3}
+    \caption{Our Fig. 5.5 replicate.\label{fig:likeGGobi3}}
+  \end{center}
+\end{figure}
+The result is shown on Fig.~\ref{fig:likeGGobi3}.
+
+
+\section{Export R Data Frame to GGobi XML Format Files}
+
+In order to use the stand alone \G version we have to
+export our \R data into \GX format. This is done by calling
+function \texttt{writeGGobiXML}\footnote{This \R
+  code is adapted from function \texttt{f.writeXML} of Di Cook's
+  \texttt{writeXML.R} file available at: \url{http:// 
+www.public.iastate.edu/~dicook/ggobi-book/ggobi.html}}.
+
+The formal arguments of \texttt{writeGGobiXML} are:
+
+\begin{itemize}
+\item \texttt{x}: A \texttt{data frame} or \texttt{matrix} object.
+\item \texttt{filename}: A \texttt{character}, the file name where the
+  data will be written.
+\item \texttt{data.name}: A \texttt{character} specifying the value of
+  an attribute of a \G XML element. See
+  \url{http://www.ggobi.org/docs/xml.pdf} for details. Default set  
+to \texttt{data}.
+\item \texttt{default.color}: A \texttt{character} with a number
+  specifying the default color used. See
+  \url{http://www.ggobi.org/docs/xml.pdf} for details. Default set  
+to \texttt{0}.
+\item \texttt{default.glyph}: A \texttt{character} with letter(s),
+  space ans number
+  specifying the default glyph used. See
+  \url{http://www.ggobi.org/docs/xml.pdf} for details. Default set to
+  \texttt{fc 1}.
+\item \texttt{catvars1}: Don't know yet, default \texttt{NULL}.
+\item \texttt{x.colors}: A \texttt{character} vector with event
+  specific colors. Default set to \texttt{NULL}.
+\item \texttt{x.glyphs}: A \texttt{character} vector with event
+  specific glyph. Default set to \texttt{NULL}.
+\item \texttt{x.id}: A \texttt{character} vector with event
+  specific id. Default set to \texttt{NULL}.
+\item \texttt{x.description}: A \texttt{character} vector with a short
+  description of the data set. Default set to the \texttt{object  
+exported from R}.
+\item \texttt{x.name}: A \texttt{character} vector with default set  
+to \texttt{data}.
+\end{itemize}
+
+So as an example, let's export our olive data bu specifying the colors
+and glyphs to have them look like... Fig. 5.5 of course. To do that we
+first check the color order on our \G version (mine is now 1.0.6-beta
+for Linux) and I see there: yellow, red, blue, green, orange, brown,
+pink, gray, purple. We define a glyph and a color vector as follows:
+
+<<glyph and color definition>>=
+unique(olive[,"Region"])
+myColors <- c(1,3,8)
+myGlyphs <- rep("fc", 3)
+colVector <- as.vector(sapply(olive[,"Region"], function(i) myColors 
+[i]))
+glyphVector <- as.vector(sapply(olive[,"Region"], function(i)  
+myGlyphs[i]))
+@
+
+We then export the data:
+
+<<writeGGobiXML example>>=
+writeGGobiXML(olive, filename = "newOlive.xml", data.name = "The  
+colored olives",
+              x.description = "Same as before with some colors",
+              x.colors = colVector, x.glyphs = glyphVector)
+@
+
+\end{document}
+
