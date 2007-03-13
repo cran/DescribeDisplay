@@ -1,0 +1,5 @@
+source("load.r")
+bar <- dd_load("examples/barchart.r")
+spine <- dd_load("examples/spinechart.r")
+hist <- dd_load("examples/histogram.r")
+spinogram <- dd_load("examples/histogram.r")
