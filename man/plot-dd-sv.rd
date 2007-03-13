@@ -6,12 +6,15 @@
 \description{
 Draw a complete describe display.
 }
-\usage{plot.dd(x, ..., draw = TRUE, axislocation = c(0.1, 0.1))}
+\usage{plot.dd(x, ..., draw = TRUE, axislocation = c(0.1, 0.1), size=0.9, axisgp=gpar(col="black"), background.color="grey90")}
 \arguments{
 \item{x}{dd object to plot}
 \item{...}{(unused)}
 \item{draw}{draw plot, or just return grob}
-\item{axislocation}{}
+\item{axislocation}{location of axes (as x and y position in npc coordinates, ie. between 0 and 1)}
+\item{size}{size of plot as a proportion of the total display area (set to 1 for printed out)}
+\item{axisgp}{}
+\item{background.color}{}
 }
 \value{frame grob containing all panels, note that this does not contain the title or border}
 \details{If you want to layout multiple dd plots on the same page, you can
@@ -26,6 +29,9 @@ these.}
 \examples{ash <- dd_load(system.file("examples", "test-ash.r", package="DescribeDisplay"))
 plot(ash)
 ash$plots[[1]]$drawlines <- TRUE
+plot(ash)
+ash$plots[[1]]$showPoints <- FALSE
+plot(ash)
 
 texture <- dd_load(system.file("examples", "1d-texture.r", package="DescribeDisplay"))
 plot(texture)

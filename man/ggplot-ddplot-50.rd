@@ -1,15 +1,17 @@
 \name{ggplot.ddplot}
 \alias{ggplot.ddplot}
+\alias{ggplot.dd}
 \title{Create a nice plot}
 \author{Hadley Wickham <h.wickham@gmail.com>}
 
 \description{
 Create a nice looking plot complete with axes using ggplot.
 }
-\usage{ggplot.ddplot(data, ...)}
+\usage{ggplot.ddplot(data, plot=ggpoint, ...)}
 \arguments{
 \item{data}{plot to display}
-\item{...}{other (currently) unused arguments}
+\item{plot}{grob function to use for drawing}
+\item{...}{other arguments passed to the grob function}
 }
 
 \details{}

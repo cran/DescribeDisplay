@@ -6,10 +6,10 @@
 \description{
 Construct grob for axes.
 }
-\usage{axesGrob(panel)}
+\usage{axesGrob(panel, gp=gpar(col="black"))}
 \arguments{
 \item{panel}{describe display object}
-\item{}{plot}
+\item{gp}{plot}
 }
 
 \details{}
