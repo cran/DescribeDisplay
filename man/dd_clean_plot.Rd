@@ -1,0 +1,10 @@
+\name{dd_clean_plot}
+\alias{dd_clean_plot}
+\title{Clean plot data structure...}
+\usage{dd_clean_plot(dd, n=1)}
+\description{Clean plot data structure
+Cleans up plot data structure into consistent, easy to use data structure}
+\author{Hadley Wickham \email{h.wickham@gmail.com}}
+\keyword{internal}
+\arguments{\item{dd}{dd object}
+\item{n}{plot number}}

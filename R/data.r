@@ -1,21 +1,19 @@
-# Load describe display
-# Retrieve output of from describe display plugin
-# 
-# Also performs some conversion of data structures to more 
-# conveient form so that other functions do not have to repeatedly
-# recompute.  Some of these conversions could probably be moved into 
-# the Describe Display plugin, but it may be easier to just do them
-# on the R side..
-# 
-# @arguments file path
-# @value object of class dd
-# @keyword  manip
-# a <- dd_load(system.file("examples", "test-edges.r"))
-# b <- dd_load(system.file("examples", "test-dot.r"))
+#' Load describe display
+#' Retrieve output of from describe display plugin
+#' 
+#' Also performs some conversion of data structures to more 
+#' conveient form so that other functions do not have to repeatedly
+#' recompute.  Some of these conversions could probably be moved into 
+#' the Describe Display plugin, but it may be easier to just do them
+#' on the R side..
+#' 
+#' @param path file path
+#' @return object of class dd
+#' @author Hadley Wickham \email{h.wickham@@gmail.com}
+#' @seealso \code{\link{dd_example}} for an easier way of loading example
+#'   files
+#' @keywords  manip
 dd_load <- function(path) {
-  opt <- options(warn=-1)
-  on.exit(options(opt))
-  
   dd <- source(path)$value
   class(dd) <- c(dd_plot_class(dd$type), "dd")
   dd$colormap$foreground <- sapply(dd$colormap$foregroundColors, 
@@ -29,12 +27,34 @@ dd_load <- function(path) {
   dd
 }
 
-# Clean plot data structure
-# Cleans up plot data structure into consistent, easy to use data structure
-# 
-# @arguments dd object
-# @arguments plot number
-# @keyword internal 
+#' Load example describe display file
+#' Load example describe display file included with package.
+#' 
+#' These are mainly used for testing.
+#' 
+#' @param name name of example
+#' @author Hadley Wickham \email{h.wickham@@gmail.com}
+#' @keywords internal
+#' @examples
+#' a <- dd_example("xyplot")
+dd_example <- function(name) {
+  file <- paste(name, ".r", sep = "")
+  path <- system.file("examples", file, package = "DescribeDisplay")
+  
+  if (!file.exists(path)) {
+    stop("Cannot find example ", name, call. = FALSE)
+  }
+  
+  dd_load(path)
+}
+
+#' Clean plot data structure
+#' Cleans up plot data structure into consistent, easy to use data structure
+#' 
+#' @param dd dd object
+#' @param n plot number
+#' @author Hadley Wickham \email{h.wickham@@gmail.com}
+#' @keywords internal 
 dd_clean_plot <- function(dd, n=1) {
   names(dd$plots[[n]]) <- gsub("plot", "", names(dd$plots[[n]]))
   plot <- c(
@@ -45,7 +65,9 @@ dd_clean_plot <- function(dd, n=1) {
     dd$plots[[n]][c("type","projection", "params")]
   )
 
-	plot$baseline <- if(plot$projection == "1D plot") 0 else (min(plot$points$y) - 0.05 * abs(min(plot$points$y)))
+  if (!is.null(plot$projection)) {
+    plot$baseline <- if(plot$projection == "1D plot") 0 else (min(plot$points$y) - 0.05 * abs(min(plot$points$y)))    
+  }
   
   if (identical(dd$plots[[n]]$scale, c(0.7, 0.7))) {
     plot$xscale <- expand_range(range(plot$points$x), 0.1)
@@ -78,20 +100,22 @@ dd_clean_plot <- function(dd, n=1) {
   plot
 }
 
-# Describe display points data
-# Retrieves the describe display points data for the given plot number.
-# 
-# @arguments list of values from describe display 
-# @arguments plot number, defaults to first plot
-# @value data frame suitable for plotting
-# @keyword internal 
+#' Describe display points data
+#' Retrieves the describe display points data for the given plot number.
+#' 
+#' @param dd list of values from describe display 
+#' @param n plot number, defaults to first plot
+#' @return data frame suitable for plotting
+#' @author Hadley Wickham \email{h.wickham@@gmail.com}
+#' @keywords internal 
 dd_points <- function(dd, n=1) {
   df <- as.data.frame(dd$plots[[n]]$points)
   df$hidden <- df$hidden != 0
+  cmap <- dd$colormap$foreground
 
-	hiddencolour <- do.call(rgb,as.list(dd$colormap$hiddenColor))
+  hiddencolour <- do.call(rgb,as.list(dd$colormap$hiddenColor))
   # Remap point aesthetics to R appropriate values
-  df$col <- ifelse(df$hidden, hiddencolour, dd$colormap$foreground[df$color + 1])
+  df$col <- factor(ifelse(df$hidden, hiddencolour, cmap[df$color + 1]), levels = c(rev(cmap), hiddencolour))
   df$pch <- c(18, 3, 4, 1, 0, 16, 15)[df$glyphtype + 1]
   df$cex <- (df$glyphsize + 1)/6
 
@@ -100,13 +124,14 @@ dd_points <- function(dd, n=1) {
   df[order(!df$hidden), intersect(names(df), c("x","y", "col","pch", "cex", "hidden"))]
 }
 
-# Describe display edge data
-# Retrieves the describe display edge data for the given plot number.
-# 
-# @arguments list of values from describe display 
-# @arguments plot number, defaults to first plot
-# @value data frame suitable for plotting
-# @keyword internal 
+#' Describe display edge data
+#' Retrieves the describe display edge data for the given plot number.
+#' 
+#' @param dd list of values from describe display 
+#' @param n plot number, defaults to first plot
+#' @return data frame suitable for plotting
+#' @author Hadley Wickham \email{h.wickham@@gmail.com}
+#' @keywords internal 
 dd_edges <- function(dd, n=1) {
   if (is.null(dd$plots[[n]]$edges)) return()
   df <- do.call(rbind, lapply(dd$plots[[n]]$edges, as.data.frame))
@@ -126,22 +151,23 @@ dd_edges <- function(dd, n=1) {
   cbind(src, dest, df)
 }
 
-# Describe display plot class
-# Compute valid R class name for given plot type
-# 
-# @arguments list of values from describe display 
-# @arguments plot number, defaults to first plot
-# @keyword internal 
+#' Describe display plot class
+#' Compute valid R class name for given plot type
+#' 
+#' @param projection type of projection that should be used
+#' @author Hadley Wickham \email{h.wickham@@gmail.com}
+#' @keywords internal 
 dd_plot_class <- function(projection) {
   gsub("\\s+", "", tolower(projection))
 }
 
-# Describe display plot defaults
-# Gather overall plot defaults for specified plot
-# 
-# @arguments list of values from describe display 
-# @arguments plot number, defaults to first plot
-# @keyword internal 
+#' Describe display plot defaults
+#' Gather overall plot defaults for specified plot
+#' 
+#' @param dd list of values from describe display 
+#' @param n plot number, defaults to first plot
+#' @author Hadley Wickham \email{h.wickham@@gmail.com}
+#' @keywords internal 
 dd_defaults <- function(dd, n=1) {
   list(
     main = dd$title,
@@ -151,40 +177,44 @@ dd_defaults <- function(dd, n=1) {
   )  
 }
 
-# Describe display tour axis
-# Return representation of axes for specified plot
-# 
-# @arguments list of values from describe display 
-# @arguments plot number, defaults to first plot
-# @keyword internal 
+#' Describe display tour axis
+#' Return representation of axes for specified plot
+#' 
+#' @param plot list of information of a plot
+#' @author Hadley Wickham h.wickham [at] gmail.com
+#' @keywords internal 
 dd_tour_axes <- function(plot) {
-	if (is.null(plot$params$F)) return()
+  if (is.null(plot$params[["F"]])) return()
 
 
-	if (plot$projection == "1D Tour") {
-		proj <- matrix(plot$params$F, ncol=1)
-		colnames(proj) <- "x"
-	} else {
-		proj <- matrix(plot$params$F, ncol=2, byrow=F)
-		colnames(proj) <- c("x","y")
-	}
+  if (plot$projection == "1D Tour") {
+    proj <- matrix(plot$params[["F"]], ncol=1)
+    colnames(proj) <- "x"
+  } else {
+    proj <- matrix(plot$params[["F"]], ncol=2, byrow=FALSE)
+    colnames(proj) <- c("x","y")
+  }
 
-	lbls <- plot$params$labels
+  lbls <- plot$params$labels
 
-	ranges <- do.call(rbind,  plot$params$ranges)
-	df <- data.frame(proj, label=lbls, range=ranges)
+  ranges <- do.call(rbind,  plot$params$ranges)
+  df <- data.frame(proj, label=lbls, range=ranges)
 
-	if (plot$projection == "2D Tour") {
-		df$r <- with(df, sqrt(x^2 + y^2))
-		df$theta <- atan2(df$y, df$x)
-	} else {
-		df <- df[nrow(df):1, ]
-	}
-	
-	df
+  if (plot$projection == "2D Tour") {
+    df$r <- with(df, sqrt(x^2 + y^2))
+    df$theta <- atan2(df$y, df$x)
+  } else {
+    df <- df[nrow(df):1, ]
+  }
+  
+  df
 }
 
-# Print dd object
-# 
-# @keyword internal 
+#' Print dd object
+#' Use str to print out human readable describe display object
+#' 
+#' @param x dd object
+#' @param ... not used
+#' @author Hadley Wickham h.wickham [at] gmail.com
+#' @keywords internal 
 print.dd <- function(x, ...) str(x)

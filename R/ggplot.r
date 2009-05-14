@@ -1,85 +1,105 @@
-# Create a nice plot
-# Create a nice looking plot complete with axes using ggplot.
-# 
-# @arguments plot to display
-# @arguments grob function to use for drawing
-# @arguments other arguments passed to the grob function
-# @keyword hplot
-# @alias ggplot.dd
-#X xy <- dd_load(system.file("examples", "test-xyplot.r", package="DescribeDisplay"))
-#X ggplot(xy$plots[[1]])
-ggplot.ddplot <- function(data, plot=ggpoint, ...) {	
-  p <- ggplot(data$points, aesthetics=list(x=x, y=y))
-  p <- scmanual(p, "colour")
-  p <- scmanual(p, "size")
-  p <- scmanual(p, "shape")
-  p <- pscontinuous(p, "x", range=data$xscale)
-  p <- pscontinuous(p, "y", range=data$yscale)
+#' Create a nice plot
+#' Create a nice looking plot complete with axes using ggplot.
+#' 
+#' @param data plot to display, object created by \code{dd_load()}
+#' @param axis.location grob function to use for drawing
+#' @param ... arguments passed to the grob function
+#' @author Hadley Wickham \email{h.wickham@@gmail.com}
+#' @keywords hplot
+#' @examples
+#' 
+#' print(ggplot(dd_example("tour2d")))
+#' print(ggplot(dd_example("tour1d")))
+#' print(ggplot(dd_example("tour2d-cube3")))
+#' print(ggplot(dd_example("dot")))
+#' print(ggplot(dd_example("dot-labels")))
+#' print(ggplot(dd_example("xyplot")))
+#' print(ggplot(dd_example("xyplot")) + opts(aspect.ratio = 1))
+#' print(ggplot(dd_example("xyplot")) + xlab(NULL) + ylab(NULL))
+#' print(ggplot(dd_example("ash")))
+#' print(ggplot(dd_example("ash")) + geom_segment(aes(x=x,xend=x,y=0,yend=y),size=0.3))
+ggplot.ddplot <- function(data, axis.location = c(0.2, 0.2), ...) {
+  #cat("\nggplot.ddplot\n")
+#print(head(data$points))
+  p <- ggplot(data$points, 
+    aes_string(x = "x", y = "y", shape = "pch", size = "cex * 6", colour = "col")) +
+    scale_colour_identity() + 
+    scale_size_identity() + 
+    scale_shape_identity() + 
+    scale_linetype_identity() +
+    scale_x_continuous(
+      if(TRUE %in% (c("2dtour", "1dtour") %in% class(data) ) )
+        name = ""
+      else if(TRUE %in% (c("1dplot") %in% class(data) ) )
+        name = data$params$label 
+      else 
+        name = data$params$xlab,
+      limits = data$xscale) + 
+    scale_y_continuous(
+      if(TRUE %in% (c("2dtour", "1dtour","1dplot") %in% class(data) ) )
+        name = "" 
+      else
+        name = data$params$ylab,
+      limits = data$yscale) + 
+    geom_point() 
 
-	p$xlabel <- data$params$xlab
-	p$ylabel <- data$params$ylab	
-
-
-	ggopt(axis.colour = "black")
-  p <- plot(p, ..., aes=list(colour=col, shape=pch, size=cex*2))
-
-  # edges <- panel$edges
-  # if (!is.null(edges))  
-  #   p <- ggpath(data=edges, aes=list(x=src.x, y=src.y, dest.x, dest.y, default.units="native", gp=gpar(lwd=edges$lwd, col=edges$col))))
-
-  if (!is.null(data$labels))
-    p <- ggtext(p, data=data$labels, aes=list(label=label), justification=c(data$labels$left[1], data$labels$top[1]))
+  if("1dplot" %in% class(data))
+    p <- p + opts(axis.text.y = theme_blank() )
+  
+  axes <- dd_tour_axes(data)
+  if (!is.null(axes)) {
+    #Only is performed if it has tour data
+    vars <- names(axes)
+    names(vars) <- vars
     
+    ## Following three lines are to remove errors.
+    axes$pch <- rep(1,length(axes$x))
+    axes$cex <- rep(2/5,length(axes$x))
+    axes$colour <- rep("black",length(axes$x))
+    
+#    print(axes)
+#	print(str(axes))
+
+    p <- p + 
+      geom_axis(data = axes, location = axis.location) +
+      opts(axis.text.x = theme_blank(), axis.text.y = theme_blank(), 
+        aspect.ratio = 1)
+  }
+
+  edges <- data$edges
+  if (!is.null(edges)) {
+    p <- p + geom_segment(
+      aes_string(x = "src.x", y = "src.y", xend = "dest.x", yend = "dest.y",
+      linetype = "lty", shape = "NULL", size = "lwd"), data = edges
+    )
+  }
+
+  
+  if (!is.null(data$labels)) {
+    ## Following three lines are to remove errors.
+    data$labels$pch <- rep(1,length(data$labels$x))
+    data$labels$cex <- rep(2/5,length(data$labels$x))
+    data$labels$colour <- rep("black",length(data$labels$x))
+    p <- p + geom_text(data=data$labels, aes_string(x = "x", y = "y", label = "label"),  justification=c(data$labels$left[1], data$labels$top[1]))
+  }  
+
   p
 }
 
+
+#' Create a nice plot
+#' Create a nice looking plot complete with axes using ggplot.
+#' 
+#' @param data plot to display, object created by \code{dd_load()}
+#' @param ... not used
+#' @author Hadley Wickham \email{h.wickham@@gmail.com}
+#' @keywords hplot
+#' @examples
+#' print(example(ggplot.ddplot))
+#' print(example(ggplot.histogram))
+#' print(example(ggplot.barplot))
 ggplot.dd <- function(data, ...) { 
-	panel <- data$plots[[1]]
-	p <- ggplot(panel, ...)
-	
-	p$title <- data$title
-	p$xlabel <- panel$params$xlab
-	p$ylabel <- panel$params$ylab
-	
-	p
-}
-
-# Compact pcp data
-# A parallel coordinates is written out as a series of 1D dotplots.  This function
-# compacts it back into one dataset.
-# 
-# @arguments data
-# @keyword internal 
-compact_pcp <- function(data) {
-	df <- do.call(rbind, lapply(data$plots, function(p) data.frame(p$points[, c("col", "pch","cex")], value=p$points$x, variable=p$params$label, id=1:nrow(p$points))))
-	cast(df, id + ... ~ variable)
-}
-
-# Create a nice plot for parallel coordinates plot
-# Create a nice looking plot complete with axes using ggplot.
-# 
-# @arguments plot to display
-# @arguments other (currently) unused arguments
-# @keyword hplot 
-ggplot.parcoords <- function(data, ...) { 
-	df <- compact_pcp(data)
-	p <- ggpcp(df, vars = setdiff(names(df), c("cex","pch","col", "id")), scale="range")
-	
-	if (data$showPoints) {
-	  p <- ggpoint(p, aesthetics=list(colour=col, shape=pch, size=cex*1.5), ...)
-	}
-	
-	p <- ggline(p, aesthetics=list(colour=col, line_type=pch, shape=pch, size=cex*1.5), ...)
-
-  p <- scmanual(p, "colour")
-  p <- scmanual(p, "size")
-  p <- scmanual(p, "line_type")
-  p <- scmanual(p, "shape")
-	
-	p$title <- data$title
-	p$xlabel <- NULL
-	p$ylabel <- NULL
-	
-	ggopt(axis.colour = "black")
-	p
+#  cat("\nggplot.dd\n")
+  panel <- data$plots[[1]]
+  ggplot(panel, ...) + opts(title = data$title)
 }
