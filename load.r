@@ -1,8 +1,9 @@
 library(DescribeDisplay)
-sapply(dir("~/ggobi/DescribeDisplay/R", "\\.r$",full=TRUE), source)
+library(ggplot2)
 
-#if (!exists("tests")) {
-#  paths <- dir("inst/examples", "\\.[rR]$", full=T)
-#  tests <- lapply(paths, dd_load)
-#  names(tests) <- sub("\.[rR]$", "", dir("tests/", "\\.[rR]$"))  
-#}
+FILE <- (function() {
+  attr(body(sys.function()), "srcfile")
+})()$filename
+PATH <- dirname(FILE)
+
+lapply(dir(file.path(PATH, "R"), full.name=T), source)
