@@ -6,10 +6,11 @@
 #' @param ... arguments passed through to the ggplot function
 #' @author Barret Schloerke \email{bigbear@@iastate.edu}
 #' @keywords hplot
+#' @S3method ggplot histogram
 #' @examples
 #' print(ggplot(dd_example("barchart")))
 ggplot.histogram <- function(data, spine = FALSE,...) {
-  cat("\nggplot.histogram\n")
+#  cat("\nggplot.histogram\n")
   
   p <- ggplot(data$points, 
     aes_string(x = "x", fill = "col",...)) + 
@@ -45,10 +46,11 @@ ggplot.histogram <- function(data, spine = FALSE,...) {
 #' @param ... arguments passed through to the ggplot function
 #' @author Barret Schloerke \email{bigbear@@iastate.edu}
 #' @keywords hplot
+#' @S3method ggplot barplot
 #' @examples
 #' print(ggplot(dd_example("barchart-species")))
 ggplot.barplot <- function(data,spine=FALSE,...){
-  cat("\nggplot.barplot\n")
+#  cat("\nggplot.barplot\n")
   levelnames <- data$params$levelnames
   levelNameOrder <- data$params$levelvalues + 1
   xVals <- data$points$x
@@ -57,13 +59,13 @@ ggplot.barplot <- function(data,spine=FALSE,...){
   }
 
   data$points$splitBy <- xVals
-print(unique(data$points$splitBy))
-temp <- unique(data$points$splitBy)
+#print(unique(data$points$splitBy))
+  temp <- unique(data$points$splitBy)
 
   p <- ggplot(data$points, aes_string(x = "splitBy", fill = "col", ...)) + 
     geom_bar() + 
     coord_flip() +
-	scale_x_discrete(data$params$label, limits=c(temp)) +
+    scale_x_discrete(data$params$label, limits=c(temp)) +
     scale_size_identity() + 
     scale_shape_identity() + 
     scale_linetype_identity() +

@@ -1,8 +1,7 @@
 \name{plot.dd}
 \alias{plot.dd}
 \title{Draw dd plot...}
-\usage{plot.dd(x, ..., draw=TRUE, axislocation=c(0.1,
-    0.1), size=0.9, axisgp=gpar(col = "black"),
+\usage{plot.dd(x, ..., draw=TRUE, axislocation=c(0.1, 0.1), size=0.9, axisgp=gpar(col = "black"),
     background.color=grey90)}
 \description{Draw dd plot
 Draw a complete describe display.}

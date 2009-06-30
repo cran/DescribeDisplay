@@ -72,11 +72,12 @@ dd_clean_plot <- function(dd, n=1) {
   if (identical(dd$plots[[n]]$scale, c(0.7, 0.7))) {
     plot$xscale <- expand_range(range(plot$points$x), 0.1)
     plot$yscale <- expand_range(range(plot$points$y), 0.1)
-  } else if (sum(dd$plots[[n]]$tformLims[1:2]) == 0 ) {
+  } else if (!is.null(dd$plots[[n]]$tformLims) & sum(dd$plots[[n]]$tformLims[1:2]) == 0 ) {
     plot$xscale <- range(dd$plots[[n]]$planarLims[1:2])
     plot$yscale <- range(dd$plots[[n]]$planarLims[3:4])
 
-    if (diff(plot$yscale) == 0 ) plot$yscale <- expand_range(range(plot$points$y), 0.1)
+    if (diff(plot$yscale) == 0 ) plot$yscale <- expand_range(range(plot$points$y), 0.1) ; print("THIRD")
+
   } else {
     plot$xscale <- dd$plots[[n]]$tformLims[1:2]
     plot$yscale <- dd$plots[[n]]$tformLims[3:4]
@@ -112,13 +113,18 @@ dd_points <- function(dd, n=1) {
   df <- as.data.frame(dd$plots[[n]]$points)
   df$hidden <- df$hidden != 0
   cmap <- dd$colormap$foreground
-
   hiddencolour <- do.call(rgb,as.list(dd$colormap$hiddenColor))
   # Remap point aesthetics to R appropriate values
   df$col <- factor(ifelse(df$hidden, hiddencolour, cmap[df$color + 1]), levels = c(rev(cmap), hiddencolour))
-  df$pch <- c(18, 3, 4, 1, 0, 16, 15)[df$glyphtype + 1]
-  df$cex <- (df$glyphsize + 1)/6
 
+  if(is.null(df$glyphtype))
+    df$pch <- df$cex <- rep(1, nrow(df))
+  else
+  {
+    df$pch <- c(18, 3, 4, 1, 0, 16, 15)[df$glyphtype + 1]
+    df$cex <- (df$glyphsize + 1)/6
+  }
+  
   rownames(df) <- nulldefault(df$index, 1:nrow(df))
   
   df[order(!df$hidden), intersect(names(df), c("x","y", "col","pch", "cex", "hidden"))]

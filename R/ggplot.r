@@ -6,6 +6,7 @@
 #' @param ... arguments passed to the grob function
 #' @author Hadley Wickham \email{h.wickham@@gmail.com}
 #' @keywords hplot
+#' @S3method ggplot ddplot
 #' @examples
 #' 
 #' print(ggplot(dd_example("tour2d")))
@@ -19,7 +20,7 @@
 #' print(ggplot(dd_example("ash")))
 #' print(ggplot(dd_example("ash")) + geom_segment(aes(x=x,xend=x,y=0,yend=y),size=0.3))
 ggplot.ddplot <- function(data, axis.location = c(0.2, 0.2), ...) {
-  #cat("\nggplot.ddplot\n")
+#  cat("\nggplot.ddplot\n")
 #print(head(data$points))
   p <- ggplot(data$points, 
     aes_string(x = "x", y = "y", shape = "pch", size = "cex * 6", colour = "col")) +
@@ -48,6 +49,7 @@ ggplot.ddplot <- function(data, axis.location = c(0.2, 0.2), ...) {
   
   axes <- dd_tour_axes(data)
   if (!is.null(axes)) {
+print("axes")
     #Only is performed if it has tour data
     vars <- names(axes)
     names(vars) <- vars
@@ -94,6 +96,7 @@ ggplot.ddplot <- function(data, axis.location = c(0.2, 0.2), ...) {
 #' @param ... not used
 #' @author Hadley Wickham \email{h.wickham@@gmail.com}
 #' @keywords hplot
+#' @S3method ggplot dd
 #' @examples
 #' print(example(ggplot.ddplot))
 #' print(example(ggplot.histogram))

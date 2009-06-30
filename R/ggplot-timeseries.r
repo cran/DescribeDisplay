@@ -45,12 +45,16 @@ compact_timeseries <- function(data){
 #' @param edges Boolean operator to tell whether to try to force the edges or not.  Will not work to remove the edges.
 #' @param ... (currently) unused arguments
 #' @author Barret Schloerke \email{bigbear@@iastate.edu}
-#' @keywords hplot 
+#' @keywords hplot
+#' @S3method ggplot timeseries 
 #' @examples
 #' print(ggplot(dd_example("pigs")))
 #' print(ggplot(dd_example("pigs"),edges=TRUE))
 ggplot.timeseries <- function(data, edges = FALSE,...){
   #cat("\nggplot.timeseries\n")
+  
+  x <- y <- NULL
+  
   df <- compact_timeseries(data)
 
   data.par <- df[,colnames(df) %in% c("cex","pch","col","id") ]

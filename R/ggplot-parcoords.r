@@ -42,6 +42,7 @@ range01 <- function(x) {
 #' @param ... arguments passed to the grob function
 #' @author Barret Schloerke \email{bigbear@@iastate.edu}
 #' @keywords hplot 
+#' @S3method ggplot parcoords 
 #' @examples
 #' print(ggplot(dd_example("pcp")))
 #' print(ggplot(dd_example("pcp-ash")))
@@ -57,6 +58,8 @@ ggplot.parcoords <- function(
   edges = TRUE,
   ...
 ) { 
+
+  x <- y <- variable <- id <- NULL
 
   df <- compact_pcp(data)
   

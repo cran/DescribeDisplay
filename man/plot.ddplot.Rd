@@ -1,9 +1,7 @@
 \name{plot.ddplot}
 \alias{plot.ddplot}
 \title{Plot a dd plot...}
-\usage{plot.ddplot(x, ..., axislocation=c(0.1, 0.1),
-    axis.gp=gpar(col = "black"),
-    background.color=grey90)}
+\usage{plot.ddplot(x, ..., axislocation=c(0.1, 0.1), axis.gp=gpar(col = "black"), background.color=grey90)}
 \description{Plot a dd plot
 Convenient method to draw a single panel.}
 \details{This is mainly used for bug testing so that you can pull out a single 

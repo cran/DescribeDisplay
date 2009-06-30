@@ -28,6 +28,7 @@ compact_scatmat <- function(data) {
 #' 
 #' @param data to display
 #' @param ... (currently) unused arguments
+#' @S3method ggplot timeseries 
 #' @examples
 #' print(ggplot(dd_example("scattermat-small")))
 #' print(ggplot(dd_example("scattermat")) + opts(aspect.ratio=1))
