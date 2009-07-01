@@ -1,8 +1,7 @@
 \name{ggplot.ddplot}
 \alias{ggplot.ddplot}
 \title{Create a nice plot...}
-\usage{ggplot.ddplot(data, axis.location=c(0.2, 0.2),
-    ...)}
+\usage{ggplot.ddplot(data, axis.location=c(0.2, 0.2), ...)}
 \description{Create a nice plot
 Create a nice looking plot complete with axes using ggplot.}
 \author{Hadley Wickham \email{h.wickham@gmail.com}}

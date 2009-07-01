@@ -1,0 +1,8 @@
+exportPattern("^[^\\.]")
+S3method(ggplot, histogram)
+S3method(ggplot, barplot)
+S3method(ggplot, parcoords)
+S3method(ggplot, timeseries)
+S3method(ggplot, timeseries)
+S3method(ggplot, ddplot)
+S3method(ggplot, dd)
