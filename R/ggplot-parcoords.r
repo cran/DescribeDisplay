@@ -77,6 +77,8 @@ ggplot.parcoords <- function(
 
   ybreaks <- seq(min(df$y), max(df$y), length = 5)
   vars <- levels(df$variable)
+  
+#  print(head(std))
 
   ### Make a pretty picture
   p <- ggplot(std, aes(x, y, group = id, colour = col, order = col)) +
@@ -85,20 +87,20 @@ ggplot.parcoords <- function(
     scale_shape_identity() + 
     scale_linetype_identity() + 
     opts(title = data$title) +
-    scale_y_continuous("", breaks = ybreaks, labels = "") + 
+    scale_y_continuous("", breaks = ybreaks, labels = rep("", length(ybreaks))) + 
     scale_x_continuous("", breaks = 1:length(vars), 
       labels = vars, minor_breaks = FALSE)
-  cat("\nDone with GGplot\n")
+#  cat("\nDone with GGplot\n")
   if(edges) {
     p <- p + geom_line(aes_string(size = "cex * 2"))
   }
-  cat("\nDone with edges\n")
+#  cat("\nDone with edges\n")
 
   # Plot points on top
   if (data$showPoints) {
     p <- p + geom_point(aes_string(shape = "pch", size = "cex * 4.5"))
   }
-  cat("\nDone with points\n")
+#  cat("\nDone with points\n")
 
   p
 }
