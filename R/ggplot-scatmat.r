@@ -4,6 +4,7 @@
 #' @param data
 #' @author Barret Schloerke \email{bigbear@@iastate.edu}
 #' @keywords internal 
+#' @importFrom reshape2 dcast
 compact_scatmat <- function(data) {
   
   df <- do.call(rbind, lapply(data$plots, function(p){
@@ -18,7 +19,7 @@ compact_scatmat <- function(data) {
     }
   }))
   
-  cast(df, id + ... ~ variable)
+  dcast(df, id + ... ~ variable)
 }
 
 #' Create a nice plots in a scatter plot matrix
@@ -28,8 +29,9 @@ compact_scatmat <- function(data) {
 #' 
 #' @param data to display
 #' @param ... (currently) unused arguments
-#' @S3method ggplot timeseries 
+#' @S3method ggplot scatmat 
 #' @examples
+#' library(ggplot2)
 #' print(ggplot(dd_example("scattermat-small")))
 #' print(ggplot(dd_example("scattermat")) + opts(aspect.ratio=1))
 #' @author Barret Schloerke \email{bigbear@@iastate.edu}

@@ -5,12 +5,13 @@
 #' @param gp arguments to the axes
 #' @author Hadley Wickham \email{h.wickham@@gmail.com}
 #' @keywords internal 
+#' @export
 axesGrob <- function(axes, gp=gpar(col="black")) {
   if (is.null(axes)) return()
 
   if (!is.null(axes$y)) { # 2d tour 
     #bigaxes <- subset(as.data.frame(axes), r > 0.3)
-    print(axes)
+
     bigaxes <- axes[axes[,"r"] > 0.3,]
     
     gTree(children=gList(
@@ -22,13 +23,14 @@ axesGrob <- function(axes, gp=gpar(col="black")) {
   } else { # 1d tour  
     n <- nrow(axes)
 
+    browser()
     gTree(children=gList(
       rectGrob(),
       linesGrob(x=unit(c(0,0), "native"), y = unit(c(0,1), "npc")),
-      segmentsGrob(-1, 1:n , 1, 1:n, default="native", gp=gpar(lty=3)),
-      segmentsGrob(0, 1:n , axes$x, 1:n, default="native", gp=gpar(lwd=2)),
-      textGrob(-1:1, -1:1, -0.3, default="native", just=c("centre", "top"), gp=gpar(cex=0.9)),
-      textGrob(axes$label, 1.1, 1:n, default="native", just=c("left", "centre"))
+      segmentsGrob(-1, 1:n , 1, 1:n, default.units="native", gp=gpar(lty=3)),
+      segmentsGrob(0, 1:n , axes$x, 1:n, default.units="native", gp=gpar(lwd=2)),
+      textGrob(-1:1, -1:1, -0.3, default.units="native", just=c("centre", "top"), gp=gpar(cex=0.9)),
+      textGrob(axes$label, 1.1, 1:n, default.units="native", just=c("left", "centre"))
       
     ), name="axis", vp=vpPath("axes"), gp=gp)
   }
@@ -41,6 +43,7 @@ axesGrob <- function(axes, gp=gpar(col="black")) {
 #' @param axislocation location of axes (as x and y position in npc coordinates, ie. between 0 and 1)
 #' @author Hadley Wickham \email{h.wickham@@gmail.com}
 #' @keywords internal 
+#' @export
 axesViewport <- function(axes, axislocation) {
   if (is.null(axes)) return()
 

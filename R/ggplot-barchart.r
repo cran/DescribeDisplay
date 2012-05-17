@@ -8,6 +8,7 @@
 #' @keywords hplot
 #' @S3method ggplot histogram
 #' @examples
+#' library(ggplot2)
 #' print(ggplot(dd_example("barchart")))
 ggplot.histogram <- function(data, spine = FALSE,...) {
 #  cat("\nggplot.histogram\n")
@@ -48,6 +49,7 @@ ggplot.histogram <- function(data, spine = FALSE,...) {
 #' @keywords hplot
 #' @S3method ggplot barplot
 #' @examples
+#' library(ggplot2)
 #' print(ggplot(dd_example("barchart-species")))
 ggplot.barplot <- function(data,spine=FALSE,...){
 #  cat("\nggplot.barplot\n")

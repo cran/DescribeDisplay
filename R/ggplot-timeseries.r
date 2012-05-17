@@ -5,6 +5,7 @@
 #' @param data
 #' @author Barret Schloerke \email{bigbear@@iastate.edu}
 #' @keywords internal 
+#' @importFrom reshape2 dcast
 compact_timeseries <- function(data){
   dfx <- data.frame(
     data$plots[[1]]$points[,c("col","pch","cex")], 
@@ -23,8 +24,8 @@ compact_timeseries <- function(data){
       )
     }))
 
-  df <- cast(df, id + ... ~ variable)
-  dfx <- cast(dfx, id + ... ~ variable)
+  df <- dcast(df, id + ... ~ variable)
+  dfx <- dcast(dfx, id + ... ~ variable)
   
   df <- cbind(
     df[,names(df) %in% c("cex","pch","col", "id") ],
@@ -48,6 +49,7 @@ compact_timeseries <- function(data){
 #' @keywords hplot
 #' @S3method ggplot timeseries 
 #' @examples
+#' library(ggplot2)
 #' print(ggplot(dd_example("pigs")))
 #' print(ggplot(dd_example("pigs"),edges=TRUE))
 ggplot.timeseries <- function(data, edges = FALSE,...){
