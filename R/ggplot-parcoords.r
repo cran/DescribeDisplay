@@ -5,13 +5,14 @@
 #' @param data data to pull points from
 #' @author Hadley Wickham \email{h.wickham@@gmail.com}
 #' @keywords internal 
+#' @importFrom plyr ldply
 compact_pcp <- function(data) {
   ldply(data$plots, function(p) {
     data.frame(
       id = 1:nrow(p$points),
       variable = p$params$label, 
       p$points[c("col", "pch", "cex")], 
-      x = nulldefault(p$points$y, 1),
+      x = p$points$y %||% 1,
       y = p$points$x
     )
   })
@@ -23,6 +24,7 @@ compact_pcp <- function(data) {
 #' @param x values to be worked on
 #' @author Hadley Wickham \email{h.wickham@@gmail.com}
 #' @keywords internal 
+#' @export
 range01 <- function(x) {
   rng <- range(x, na.rm = TRUE)
   if (diff(rng) == 0) {
@@ -43,7 +45,9 @@ range01 <- function(x) {
 #' @author Barret Schloerke \email{bigbear@@iastate.edu}
 #' @keywords hplot 
 #' @S3method ggplot parcoords 
+#' @importFrom plyr ddply
 #' @examples
+#' library(ggplot2)
 #' print(ggplot(dd_example("pcp")))
 #' print(ggplot(dd_example("pcp-ash")))
 #' print(ggplot(dd_example("pcp-ash"), edges = FALSE))
@@ -59,27 +63,28 @@ ggplot.parcoords <- function(
   ...
 ) { 
 
-  x <- y <- variable <- id <- NULL
-
   df <- compact_pcp(data)
   
   if (absoluteX) {
     std <- transform(df, x = as.numeric(variable) + range01(x) / 2)  
   } else {
     # Scale variables individually
-    std <- ddply(df, .(variable), transform, 
+    std <- ddply(df, "variable", transform, 
       x = as.numeric(variable) + range01(x) / 2)    
   }
   
   if (!absoluteY) {
-    std <- ddply(std, .(variable), transform, y = range01(y))
+    std <- ddply(std, "variable", transform, y = range01(y))
+    yscale <- scale_y_continuous(NULL)
+  } else {
+    ybreaks <- seq(min(std$y), max(std$y), length = 5)
+    ylabels <- seq(min(df$y), max(df$y), length = 5)
+    
+    yscale <- scale_y_continuous(breaks = ybreaks, labels = ylabels)
   }
 
-  ybreaks <- seq(min(df$y), max(df$y), length = 5)
   vars <- levels(df$variable)
   
-#  print(head(std))
-
   ### Make a pretty picture
   p <- ggplot(std, aes(x, y, group = id, colour = col, order = col)) +
     scale_colour_identity() + 
@@ -87,20 +92,19 @@ ggplot.parcoords <- function(
     scale_shape_identity() + 
     scale_linetype_identity() + 
     opts(title = data$title) +
-    scale_y_continuous("", breaks = ybreaks, labels = rep("", length(ybreaks))) + 
-    scale_x_continuous("", breaks = 1:length(vars), 
+    # scale_y_continuous("", breaks = ybreaks, 
+    #   labels = rep("", length(ybreaks))) + 
+    scale_x_continuous("", breaks = seq_along(vars), 
       labels = vars, minor_breaks = FALSE)
-#  cat("\nDone with GGplot\n")
+
   if(edges) {
     p <- p + geom_line(aes_string(size = "cex * 2"))
   }
-#  cat("\nDone with edges\n")
 
   # Plot points on top
   if (data$showPoints) {
     p <- p + geom_point(aes_string(shape = "pch", size = "cex * 4.5"))
   }
-#  cat("\nDone with points\n")
 
   p
 }

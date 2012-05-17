@@ -8,7 +8,7 @@
 #' @keywords hplot
 #' @S3method ggplot ddplot
 #' @examples
-#' 
+#' library(ggplot2)
 #' print(ggplot(dd_example("tour2d")))
 #' print(ggplot(dd_example("tour1d")))
 #' print(ggplot(dd_example("tour2d-cube3")))
@@ -49,7 +49,7 @@ ggplot.ddplot <- function(data, axis.location = c(0.2, 0.2), ...) {
   
   axes <- dd_tour_axes(data)
   if (!is.null(axes)) {
-print("axes")
+
     #Only is performed if it has tour data
     vars <- names(axes)
     names(vars) <- vars
@@ -63,7 +63,7 @@ print("axes")
 #	print(str(axes))
 
     p <- p + 
-      geom_axis(data = axes, location = axis.location) +
+      geom_axis(axes, location = axis.location) +
       opts(axis.text.x = theme_blank(), axis.text.y = theme_blank(), 
         aspect.ratio = 1)
   }
@@ -82,7 +82,8 @@ print("axes")
     data$labels$pch <- rep(1,length(data$labels$x))
     data$labels$cex <- rep(2/5,length(data$labels$x))
     data$labels$colour <- rep("black",length(data$labels$x))
-    p <- p + geom_text(data=data$labels, aes_string(x = "x", y = "y", label = "label"),  justification=c(data$labels$left[1], data$labels$top[1]))
+    p <- p + geom_text(data = data$labels, aes_string(x = "x", y = "y", 
+      label = "label", hjust = "left", vjust = "top"), inherit.aes = FALSE)
   }  
 
   p
@@ -98,6 +99,7 @@ print("axes")
 #' @keywords hplot
 #' @S3method ggplot dd
 #' @examples
+#' library(ggplot2)
 #' print(example(ggplot.ddplot))
 #' print(example(ggplot.histogram))
 #' print(example(ggplot.barplot))

@@ -13,6 +13,7 @@
 #' @seealso \code{\link{dd_example}} for an easier way of loading example
 #'   files
 #' @keywords  manip
+#' @export
 dd_load <- function(path) {
   dd <- source(path)$value
   class(dd) <- c(dd_plot_class(dd$type), "dd")
@@ -20,7 +21,7 @@ dd_load <- function(path) {
     function(x) do.call(rgb, as.list(x))
   )
   dd$colormap$foregroundColors <- NULL
-  cols <- nulldefault(dd$ncols, 1)
+  cols <- dd$ncols %||% 1
   dd$dim <- c(dd$nplots / cols, cols)
   dd$plots <- lapply(1:dd$nplots, function(n) dd_clean_plot(dd, n))  
   
@@ -35,6 +36,7 @@ dd_load <- function(path) {
 #' @param name name of example
 #' @author Hadley Wickham \email{h.wickham@@gmail.com}
 #' @keywords internal
+#' @export
 #' @examples
 #' a <- dd_example("xyplot")
 dd_example <- function(name) {
@@ -55,6 +57,7 @@ dd_example <- function(name) {
 #' @param n plot number
 #' @author Hadley Wickham \email{h.wickham@@gmail.com}
 #' @keywords internal 
+#' @importFrom scales expand_range
 dd_clean_plot <- function(dd, n=1) {
   names(dd$plots[[n]]) <- gsub("plot", "", names(dd$plots[[n]]))
   plot <- c(
@@ -125,7 +128,7 @@ dd_points <- function(dd, n=1) {
     df$cex <- (df$glyphsize + 1)/6
   }
   
-  rownames(df) <- nulldefault(df$index, 1:nrow(df))
+  rownames(df) <- df$index %||% seq_len(nrow(df))
   
   df[order(!df$hidden), intersect(names(df), c("x","y", "col","pch", "cex", "hidden"))]
 }
@@ -177,8 +180,8 @@ dd_plot_class <- function(projection) {
 dd_defaults <- function(dd, n=1) {
   list(
     main = dd$title,
-    xlab = nulldefault(dd$plots[[n]]$plotparams$xlab, ""),
-    ylab = nulldefault(dd$plots[[n]]$plotparams$ylab, ""),
+    xlab = dd$plots[[n]]$plotparams$xlab %||% "",
+    ylab = dd$plots[[n]]$plotparams$ylab %||% "",
     axes = FALSE
   )  
 }
@@ -216,11 +219,5 @@ dd_tour_axes <- function(plot) {
   df
 }
 
-#' Print dd object
-#' Use str to print out human readable describe display object
-#' 
-#' @param x dd object
-#' @param ... not used
-#' @author Hadley Wickham h.wickham [at] gmail.com
-#' @keywords internal 
+#' @S3method print dd
 print.dd <- function(x, ...) str(x)
