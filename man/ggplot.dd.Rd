@@ -3,7 +3,7 @@
 \title{Create a nice plot
 Create a nice looking plot complete with axes using ggplot.}
 \usage{
-  ggplot.dd(data, ...)
+ggplot.dd(data, ...)
 }
 \arguments{
   \item{data}{plot to display, object created by
@@ -25,4 +25,3 @@ print(example(ggplot.barplot))
   Hadley Wickham \email{h.wickham@gmail.com}
 }
 \keyword{hplot}
-

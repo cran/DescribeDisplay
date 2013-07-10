@@ -3,8 +3,7 @@
 \title{Create a nice plot for parallel coordinates plot
 Create a nice looking plot complete with axes using ggplot.}
 \usage{
-  ggplot.parcoords(data, absoluteX = FALSE,
-    absoluteY = FALSE, edges = TRUE, ...)
+ggplot.parcoords(data, absoluteX = FALSE, absoluteY = FALSE, edges = TRUE, ...)
 }
 \arguments{
   \item{data}{plot to display}
@@ -26,16 +25,9 @@ Create a nice looking plot complete with axes using ggplot.}
 }
 \examples{
 library(ggplot2)
-print(ggplot(dd_example("pcp")))
-print(ggplot(dd_example("pcp-ash")))
-print(ggplot(dd_example("pcp-ash"), edges = FALSE))
-print(ggplot(dd_example("pcp-ash"),absoluteY = TRUE, edges = FALSE))
-print(ggplot(dd_example("pcp-texture")))
-print(ggplot(dd_example("pcp-texture"), edges =FALSE))
-print(ggplot(dd_example("pcp-texture"),absoluteY=TRUE, edges =FALSE))
+print(ggplot(dd_example("parcoord")))
 }
 \author{
   Barret Schloerke \email{bigbear@iastate.edu}
 }
 \keyword{hplot}
-

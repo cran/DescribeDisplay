@@ -3,7 +3,7 @@
 \title{Load describe display
 Retrieve output of from describe display plugin}
 \usage{
-  dd_load(path)
+dd_load(path)
 }
 \arguments{
   \item{path}{file path}
@@ -26,4 +26,3 @@ Retrieve output of from describe display plugin}
   example files
 }
 \keyword{manip}
-

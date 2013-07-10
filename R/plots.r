@@ -19,23 +19,9 @@
 #' @param background.color color of in the background of the plot
 #' @return frame grob containing all panels, note that this does not contain the title or border
 #' @examples
-#' plot(dd_example("dot"))
 #' plot(dd_example("xyplot"))
 #' plot(dd_example("tour1d"))
 #' plot(dd_example("tour2d"))
-#'
-#' ash <- dd_example("ash")
-#' plot(ash)
-#' ash$plots[[1]]$drawlines <- TRUE
-#' plot(ash)
-#' ash$plots[[1]]$showPoints <- FALSE
-#' plot(ash)
-#'
-#' texture <- dd_example("1d-texture")
-#' plot(texture)
-#' library(scales)
-#' texture$plots[[1]]$yscale <- expand_range(texture$plots[[1]]$yscale, 0.5)
-#' plot(texture)
 #' @author Hadley Wickham \email{h.wickham@@gmail.com}
 #' @keywords internal 
 #' @method plot dd
@@ -85,7 +71,7 @@ plot.dd <- function(x, ..., draw = TRUE, axislocation = c(0.1, 0.1), size=0.9, a
 #' @method plot ddplot
 #' @export
 #' @examples
-#' scatmat <- dd_example("scattermat")
+#' scatmat <- dd_example("scatmat")
 #' plot(scatmat)
 #' plot(scatmat$plots[[1]])
 #' plot(scatmat$plots[[3]])

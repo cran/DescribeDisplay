@@ -3,7 +3,7 @@
 \title{Axes viewport
 Construct viewport for axes.}
 \usage{
-  axesViewport(axes, axislocation)
+axesViewport(axes, axislocation)
 }
 \arguments{
   \item{axes}{describe display object}
@@ -18,4 +18,3 @@ Construct viewport for axes.}
   Hadley Wickham \email{h.wickham@gmail.com}
 }
 \keyword{internal}
-

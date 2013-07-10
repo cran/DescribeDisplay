@@ -4,7 +4,7 @@
 A time series plot is made from scatterplots with a common x axis.
 This function pulls the correct information out of the data.}
 \usage{
-  compact_timeseries(data)
+compact_timeseries(data)
 }
 \arguments{
   \item{data}{}
@@ -18,4 +18,3 @@ This function pulls the correct information out of the data.}
   Barret Schloerke \email{bigbear@iastate.edu}
 }
 \keyword{internal}
-

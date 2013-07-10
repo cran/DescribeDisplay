@@ -50,8 +50,8 @@ compact_timeseries <- function(data){
 #' @S3method ggplot timeseries 
 #' @examples
 #' library(ggplot2)
-#' print(ggplot(dd_example("pigs")))
-#' print(ggplot(dd_example("pigs"),edges=TRUE))
+#' print(ggplot(dd_example("timeseries")))
+#' print(ggplot(dd_example("timeseries"),edges=TRUE))
 ggplot.timeseries <- function(data, edges = FALSE,...){
   #cat("\nggplot.timeseries\n")
   
@@ -92,12 +92,10 @@ ggplot.timeseries <- function(data, edges = FALSE,...){
       scale_size_identity() + 
       scale_shape_identity() + 
       scale_linetype_identity() + 
-      opts(title = data$title) +
+      theme(title = element_text(data$title)) +
       scale_x_continuous(all[1,"yvar"]) +
       scale_y_continuous("")+
-      geom_point(data = all, aes_string(size = "cex * 4",colour="col", shape = "pch")) +
-      opts(title = data$title)
-    
+      geom_point(data = all, aes_string(size = "cex * 4",colour="col", shape = "pch"))     
   
   if(data$showDirectedEdges | data$showUndirectedEdges | edges == TRUE)
     p <- p + geom_path(data = all, aes_string(x = "x", y = "y", size = "cex", colour = "col"))

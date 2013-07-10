@@ -3,7 +3,7 @@
 \title{Clean plot data structure
 Cleans up plot data structure into consistent, easy to use data structure}
 \usage{
-  dd_clean_plot(dd, n = 1)
+dd_clean_plot(dd, n = 1)
 }
 \arguments{
   \item{dd}{dd object}
@@ -18,4 +18,3 @@ Cleans up plot data structure into consistent, easy to use data structure}
   Hadley Wickham \email{h.wickham@gmail.com}
 }
 \keyword{internal}
-

@@ -3,7 +3,7 @@
 \title{Describe display plot defaults
 Gather overall plot defaults for specified plot}
 \usage{
-  dd_defaults(dd, n = 1)
+dd_defaults(dd, n = 1)
 }
 \arguments{
   \item{dd}{list of values from describe display}
@@ -18,4 +18,3 @@ Gather overall plot defaults for specified plot}
   Hadley Wickham \email{h.wickham@gmail.com}
 }
 \keyword{internal}
-

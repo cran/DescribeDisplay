@@ -3,7 +3,7 @@
 \title{Load example describe display file
 Load example describe display file included with package.}
 \usage{
-  dd_example(name)
+dd_example(name)
 }
 \arguments{
   \item{name}{name of example}
@@ -18,4 +18,3 @@ a <- dd_example("xyplot")
   Hadley Wickham \email{h.wickham@gmail.com}
 }
 \keyword{internal}
-

@@ -5,7 +5,7 @@ Create a nice looking plots in a matrix.  The 1d sections along
 the diagonal have a smooth density while the values are compared
 to eachother within the matrix.}
 \usage{
-  ggplot.scatmat(data, ...)
+ggplot.scatmat(data, ...)
 }
 \arguments{
   \item{data}{to display}
@@ -20,11 +20,11 @@ to eachother within the matrix.}
 }
 \examples{
 library(ggplot2)
-print(ggplot(dd_example("scattermat-small")))
-print(ggplot(dd_example("scattermat")) + opts(aspect.ratio=1))
+library(GGally)
+print(ggplot(dd_example("scatmat")))
+print(ggplot(dd_example("scatmat")) + theme(aspect.ratio = 1))
 }
 \author{
   Barret Schloerke \email{bigbear@iastate.edu}
 }
 \keyword{hplot}
-

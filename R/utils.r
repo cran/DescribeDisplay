@@ -11,6 +11,7 @@
 #' @param col outline colour of brush
 #' @author Hadley Wickham \email{h.wickham@@gmail.com}
 #' @keywords hplot
+#' @export
 addbrush <- function(plot, x,y, width=0.5, height=0.5, just=c("left", "top"), fill="transparent", col="black") {
   brush <- data.frame(x=x, y=y, width=width, height=height)
   geom_rect(
@@ -26,6 +27,7 @@ addbrush <- function(plot, x,y, width=0.5, height=0.5, just=c("left", "top"), fi
 #' @param d ddplot object
 #' @author Hadley Wickham \email{h.wickham@@gmail.com}
 #' @keywords manip
+#' @export
 removehiddens <- function(d) {
   d$plots <- lapply(d$plots, function(dd) {
     dd$points <- dd$points[!dd$points$hidden, ]
@@ -39,6 +41,7 @@ removehiddens <- function(d) {
 #' Will run all examples within the package
 #' @author Barret Schloerke bigbear@@iastate.edu
 #' @keywords hplot
+#' @export
 zeeThemAll <- function()
 {
 	example(ggplot.dd)

@@ -9,16 +9,11 @@
 #' @S3method ggplot ddplot
 #' @examples
 #' library(ggplot2)
+#' print(ggplot(dd_example("xyplot")))
 #' print(ggplot(dd_example("tour2d")))
 #' print(ggplot(dd_example("tour1d")))
-#' print(ggplot(dd_example("tour2d-cube3")))
-#' print(ggplot(dd_example("dot")))
-#' print(ggplot(dd_example("dot-labels")))
-#' print(ggplot(dd_example("xyplot")))
-#' print(ggplot(dd_example("xyplot")) + opts(aspect.ratio = 1))
-#' print(ggplot(dd_example("xyplot")) + xlab(NULL) + ylab(NULL))
-#' print(ggplot(dd_example("ash")))
-#' print(ggplot(dd_example("ash")) + geom_segment(aes(x=x,xend=x,y=0,yend=y),size=0.3))
+#' print(ggplot(dd_example("plot1d")))
+#' print(ggplot(dd_example("plot1d")) + geom_segment(aes(x=x,xend=x,y=0,yend=y),size=0.3))
 ggplot.ddplot <- function(data, axis.location = c(0.2, 0.2), ...) {
 #  cat("\nggplot.ddplot\n")
 #print(head(data$points))
@@ -45,7 +40,7 @@ ggplot.ddplot <- function(data, axis.location = c(0.2, 0.2), ...) {
     geom_point() 
 
   if("1dplot" %in% class(data))
-    p <- p + opts(axis.text.y = theme_blank() )
+    p <- p + theme(axis.text.y = element_blank() )
   
   axes <- dd_tour_axes(data)
   if (!is.null(axes)) {
@@ -64,7 +59,7 @@ ggplot.ddplot <- function(data, axis.location = c(0.2, 0.2), ...) {
 
     p <- p + 
       geom_axis(axes, location = axis.location) +
-      opts(axis.text.x = theme_blank(), axis.text.y = theme_blank(), 
+      theme(axis.text.x = element_blank(), axis.text.y = element_blank(), 
         aspect.ratio = 1)
   }
 
@@ -106,5 +101,5 @@ ggplot.ddplot <- function(data, axis.location = c(0.2, 0.2), ...) {
 ggplot.dd <- function(data, ...) { 
 #  cat("\nggplot.dd\n")
   panel <- data$plots[[1]]
-  ggplot(panel, ...) + opts(title = data$title)
+  ggplot(panel, ...) + theme(title = element_text(data$title))
 }
