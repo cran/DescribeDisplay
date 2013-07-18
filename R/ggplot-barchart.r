@@ -10,6 +10,7 @@
 #' @examples
 #' library(ggplot2)
 #' print(ggplot(dd_example("barchart")))
+#' print(ggplot(dd_example("histogram")))
 ggplot.histogram <- function(data, spine = FALSE,...) {
 #  cat("\nggplot.histogram\n")
   
@@ -50,7 +51,7 @@ ggplot.histogram <- function(data, spine = FALSE,...) {
 #' @S3method ggplot barplot
 #' @examples
 #' library(ggplot2)
-#' print(ggplot(dd_example("barchart-species")))
+#' print(ggplot(dd_example("barchart")))
 ggplot.barplot <- function(data,spine=FALSE,...){
 #  cat("\nggplot.barplot\n")
   levelnames <- data$params$levelnames

@@ -3,7 +3,7 @@
 \title{Describe display edge data
 Retrieves the describe display edge data for the given plot number.}
 \usage{
-  dd_edges(dd, n = 1)
+dd_edges(dd, n = 1)
 }
 \arguments{
   \item{dd}{list of values from describe display}
@@ -21,4 +21,3 @@ Retrieves the describe display edge data for the given plot number.}
   Hadley Wickham \email{h.wickham@gmail.com}
 }
 \keyword{internal}
-

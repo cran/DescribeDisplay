@@ -3,7 +3,7 @@
 \title{Describe display plot class
 Compute valid R class name for given plot type}
 \usage{
-  dd_plot_class(projection)
+dd_plot_class(projection)
 }
 \arguments{
   \item{projection}{type of projection that should be used}
@@ -16,4 +16,3 @@ Compute valid R class name for given plot type}
   Hadley Wickham \email{h.wickham@gmail.com}
 }
 \keyword{internal}
-

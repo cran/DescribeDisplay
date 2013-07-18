@@ -23,7 +23,6 @@ axesGrob <- function(axes, gp=gpar(col="black")) {
   } else { # 1d tour  
     n <- nrow(axes)
 
-    browser()
     gTree(children=gList(
       rectGrob(),
       linesGrob(x=unit(c(0,0), "native"), y = unit(c(0,1), "npc")),

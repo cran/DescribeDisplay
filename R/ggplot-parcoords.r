@@ -48,13 +48,7 @@ range01 <- function(x) {
 #' @importFrom plyr ddply
 #' @examples
 #' library(ggplot2)
-#' print(ggplot(dd_example("pcp")))
-#' print(ggplot(dd_example("pcp-ash")))
-#' print(ggplot(dd_example("pcp-ash"), edges = FALSE))
-#' print(ggplot(dd_example("pcp-ash"),absoluteY = TRUE, edges = FALSE))
-#' print(ggplot(dd_example("pcp-texture")))
-#' print(ggplot(dd_example("pcp-texture"), edges =FALSE))
-#' print(ggplot(dd_example("pcp-texture"),absoluteY=TRUE, edges =FALSE))
+#' print(ggplot(dd_example("parcoord")))
 ggplot.parcoords <- function(
   data,
   absoluteX = FALSE, 
@@ -62,7 +56,10 @@ ggplot.parcoords <- function(
   edges = TRUE,
   ...
 ) { 
-
+  variable <- NULL
+  x <- NULL
+  y <- NULL
+  id <- NULL
   df <- compact_pcp(data)
   
   if (absoluteX) {
@@ -91,7 +88,7 @@ ggplot.parcoords <- function(
     scale_size_identity() + 
     scale_shape_identity() + 
     scale_linetype_identity() + 
-    opts(title = data$title) +
+    theme(title = element_text(data$title)) +
     # scale_y_continuous("", breaks = ybreaks, 
     #   labels = rep("", length(ybreaks))) + 
     scale_x_continuous("", breaks = seq_along(vars), 

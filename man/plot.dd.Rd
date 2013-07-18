@@ -3,10 +3,8 @@
 \title{Draw dd plot
 Draw a complete describe display.}
 \usage{
-  \method{plot}{dd} (x, ..., draw = TRUE,
-    axislocation = c(0.1, 0.1), size = 0.9,
-    axisgp = gpar(col = "black"),
-    background.color = "grey90")
+\method{plot}{dd}(x, ..., draw = TRUE, axislocation = c(0.1, 0.1), size = 0.9, 
+    axisgp = gpar(col = "black"), background.color = "grey90")
 }
 \arguments{
   \item{x}{dd object to plot}
@@ -43,26 +41,11 @@ Draw a complete describe display.}
   ways to use these.
 }
 \examples{
-plot(dd_example("dot"))
 plot(dd_example("xyplot"))
 plot(dd_example("tour1d"))
 plot(dd_example("tour2d"))
-
-ash <- dd_example("ash")
-plot(ash)
-ash$plots[[1]]$drawlines <- TRUE
-plot(ash)
-ash$plots[[1]]$showPoints <- FALSE
-plot(ash)
-
-texture <- dd_example("1d-texture")
-plot(texture)
-library(scales)
-texture$plots[[1]]$yscale <- expand_range(texture$plots[[1]]$yscale, 0.5)
-plot(texture)
 }
 \author{
   Hadley Wickham \email{h.wickham@gmail.com}
 }
 \keyword{internal}
-

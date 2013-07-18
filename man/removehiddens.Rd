@@ -3,7 +3,7 @@
 \title{Remove hidden points
 Will remove all hidden points from the plot.}
 \usage{
-  removehiddens(d)
+removehiddens(d)
 }
 \arguments{
   \item{d}{ddplot object}
@@ -16,4 +16,3 @@ Will remove all hidden points from the plot.}
   Hadley Wickham \email{h.wickham@gmail.com}
 }
 \keyword{manip}
-

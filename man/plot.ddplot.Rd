@@ -3,9 +3,7 @@
 \title{Plot a dd plot
 Convenient method to draw a single panel.}
 \usage{
-  \method{plot}{ddplot} (x, ...,
-    axislocation = c(0.1, 0.1),
-    axis.gp = gpar(col = "black"),
+\method{plot}{ddplot}(x, ..., axislocation = c(0.1, 0.1), axis.gp = gpar(col = "black"), 
     background.color = "grey90")
 }
 \arguments{
@@ -27,7 +25,7 @@ Convenient method to draw a single panel.}
   out a single panel quickly and easily.
 }
 \examples{
-scatmat <- dd_example("scattermat")
+scatmat <- dd_example("scatmat")
 plot(scatmat)
 plot(scatmat$plots[[1]])
 plot(scatmat$plots[[3]])
@@ -37,4 +35,3 @@ plot(scatmat$plots[[4]])
   Hadley Wickham \email{h.wickham@gmail.com}
 }
 \keyword{hplot}
-

@@ -3,7 +3,7 @@
 \title{Axes grob
 Construct grob for axes.}
 \usage{
-  axesGrob(axes, gp = gpar(col = "black"))
+axesGrob(axes, gp = gpar(col = "black"))
 }
 \arguments{
   \item{axes}{describe display object}
@@ -17,4 +17,3 @@ Construct grob for axes.}
   Hadley Wickham \email{h.wickham@gmail.com}
 }
 \keyword{internal}
-

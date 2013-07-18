@@ -4,7 +4,7 @@
 A parallel coordinates is written out as a series of 1D dotplots.  This function
 compacts it back into one dataset.}
 \usage{
-  compact_pcp(data)
+compact_pcp(data)
 }
 \arguments{
   \item{data}{data to pull points from}
@@ -18,4 +18,3 @@ compacts it back into one dataset.}
   Hadley Wickham \email{h.wickham@gmail.com}
 }
 \keyword{internal}
-

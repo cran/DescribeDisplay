@@ -32,22 +32,25 @@ compact_scatmat <- function(data) {
 #' @S3method ggplot scatmat 
 #' @examples
 #' library(ggplot2)
-#' print(ggplot(dd_example("scattermat-small")))
-#' print(ggplot(dd_example("scattermat")) + opts(aspect.ratio=1))
+#' library(GGally)
+#' print(ggplot(dd_example("scatmat")))
+#' print(ggplot(dd_example("scatmat")) + theme(aspect.ratio=1))
 #' @author Barret Schloerke \email{bigbear@@iastate.edu}
 #' @keywords hplot 
 ggplot.scatmat <- function(data,...){
   #cat("\nggplot.scatmat\n")
   df <- compact_scatmat(data)
 
-  p <- plotmatrix( df[,setdiff(names(df), c("cex","pch","col", "id")) ] ) +
-      scale_colour_identity() + 
-      scale_size_identity() + 
-      scale_shape_identity() + 
-      scale_linetype_identity() + 
-      opts(title = data$title) +
-      scale_y_continuous("") +
-      scale_x_continuous("")
-
+#  p <- plotmatrix( df[,setdiff(names(df), c("cex","pch","col", "id")) ] ) +
+#      scale_colour_identity() + 
+#      scale_size_identity() + 
+#      scale_shape_identity() + 
+#      scale_linetype_identity() + 
+#      theme(title = element_text(data$title)) +
+#      scale_y_continuous("") +
+#      scale_x_continuous("")
+  df$pch <- factor(df$pch)
+  p <- GGally::ggpairs(df, columns=5:ncol(df), colour="col", shape="pch", size="cex")   
+  
   p
 }

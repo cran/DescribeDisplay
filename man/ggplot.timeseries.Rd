@@ -3,7 +3,7 @@
 \title{Create nice plots for a time series
 Create nice looking plots complete with axes using ggplot.  Produces graphics with a uniform x axis.}
 \usage{
-  ggplot.timeseries(data, edges = FALSE, ...)
+ggplot.timeseries(data, edges = FALSE, ...)
 }
 \arguments{
   \item{data}{to display}
@@ -21,11 +21,10 @@ Create nice looking plots complete with axes using ggplot.  Produces graphics wi
 }
 \examples{
 library(ggplot2)
-print(ggplot(dd_example("pigs")))
-print(ggplot(dd_example("pigs"),edges=TRUE))
+print(ggplot(dd_example("timeseries")))
+print(ggplot(dd_example("timeseries"), edges = TRUE))
 }
 \author{
   Barret Schloerke \email{bigbear@iastate.edu}
 }
 \keyword{hplot}
-

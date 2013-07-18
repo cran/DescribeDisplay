@@ -3,7 +3,7 @@
 \title{Describe display tour axis
 Return representation of axes for specified plot}
 \usage{
-  dd_tour_axes(plot)
+dd_tour_axes(plot)
 }
 \arguments{
   \item{plot}{list of information of a plot}
@@ -16,4 +16,3 @@ Return representation of axes for specified plot}
   Hadley Wickham h.wickham [at] gmail.com
 }
 \keyword{internal}
-

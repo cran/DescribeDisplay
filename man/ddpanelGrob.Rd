@@ -3,8 +3,7 @@
 \title{Panel grob
 Construct grob for single panel.}
 \usage{
-  ddpanelGrob(panel, axislocation = c(0.1, 0.1),
-    axis.gp = gpar(col = "black"),
+ddpanelGrob(panel, axislocation = c(0.1, 0.1), axis.gp = gpar(col = "black"), 
     background.color = "grey90")
 }
 \arguments{
@@ -25,4 +24,3 @@ Construct grob for single panel.}
   Hadley Wickham \email{h.wickham@gmail.com}
 }
 \keyword{internal}
-
