@@ -1,4 +1,4 @@
-display = list(version='1.0.0',colormap = list(name='Set1 9',
+display <- list(version='1.0.0',colormap = list(name='Set1 9',
 ncolors=9,
 type=3,
 system='rgb',

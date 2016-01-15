@@ -12,12 +12,19 @@
 #' @author Hadley Wickham \email{h.wickham@@gmail.com}
 #' @keywords hplot
 #' @export
-addbrush <- function(plot, x,y, width=0.5, height=0.5, just=c("left", "top"), fill="transparent", col="black") {
-  brush <- data.frame(x=x, y=y, width=width, height=height)
+addbrush <- function(
+  plot,
+  x, y,
+  width = 0.5, height = 0.5,
+  just = c("left", "top"),
+  fill = "transparent",
+  col = "black"
+) {
+  brush <- data.frame(x = x, y = y, width = width, height = height)
   geom_rect(
     aes_string("x", "y", width = "width", height = "height"),
-    data = brush, 
-    justification=just, fill=fill, colour=col
+    data = brush,
+    justification = just, fill = fill, colour = col
   )
 }
 
@@ -33,21 +40,20 @@ removehiddens <- function(d) {
     dd$points <- dd$points[!dd$points$hidden, ]
     dd
   })
-  
+
   d
 }
 
 #' Run All Examples
 #' Will run all examples within the package
-#' @author Barret Schloerke bigbear@@iastate.edu
+#' @author Barret Schloerke schloerke@@gmail.com
 #' @keywords hplot
 #' @export
-zeeThemAll <- function()
-{
-	example(ggplot.dd)
-	example(ggplot.scatmat)
-	example(ggplot.parcoords)
-	example(ggplot.timeseries)	
+zeeThemAll <- function() {
+  example(ggplot.dd)
+  example(ggplot.scatmat)
+  example(ggplot.parcoords)
+  example(ggplot.timeseries)
 }
 
 
