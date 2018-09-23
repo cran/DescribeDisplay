@@ -31,4 +31,3 @@ print(ggplot(dd_example("parcoord")))
 Barret Schloerke \email{schloerke@gmail.com}
 }
 \keyword{hplot}
-

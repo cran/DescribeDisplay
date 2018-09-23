@@ -25,4 +25,3 @@ Construct grob for single panel.
 Hadley Wickham \email{h.wickham@gmail.com}
 }
 \keyword{internal}
-

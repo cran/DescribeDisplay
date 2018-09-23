@@ -26,4 +26,3 @@ print(example(ggplot.barplot))
 Hadley Wickham \email{h.wickham@gmail.com}
 }
 \keyword{hplot}
-

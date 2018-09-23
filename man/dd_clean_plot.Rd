@@ -20,4 +20,3 @@ Cleans up plot data structure into consistent, easy to use data structure
 Hadley Wickham \email{h.wickham@gmail.com}
 }
 \keyword{internal}
-

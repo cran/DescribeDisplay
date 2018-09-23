@@ -18,4 +18,3 @@ A scatter plot matrix is made from the information from the 1Dplots. This functi
 Barret Schloerke \email{schloerke@gmail.com}
 }
 \keyword{internal}
-

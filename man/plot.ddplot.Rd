@@ -34,4 +34,3 @@ plot(scatmat$plots[[4]])
 Hadley Wickham \email{h.wickham@gmail.com}
 }
 \keyword{hplot}
-

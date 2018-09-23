@@ -15,4 +15,3 @@ Will run all examples within the package
 Barret Schloerke schloerke@gmail.com
 }
 \keyword{hplot}
-

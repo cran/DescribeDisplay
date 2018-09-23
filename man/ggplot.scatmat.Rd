@@ -28,4 +28,3 @@ print(ggplot(dd_example("scatmat")))
 Barret Schloerke \email{schloerke@gmail.com}
 }
 \keyword{hplot}
-

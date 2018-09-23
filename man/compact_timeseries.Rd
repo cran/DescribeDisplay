@@ -20,4 +20,3 @@ This function pulls the correct information out of the data.
 Barret Schloerke \email{schloerke@gmail.com}
 }
 \keyword{internal}
-

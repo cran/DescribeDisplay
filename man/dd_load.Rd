@@ -20,12 +20,11 @@ recompute.  Some of these conversions could probably be moved into
 the Describe Display plugin, but it may be easier to just do them
 on the R side..
 }
-\author{
-Hadley Wickham \email{h.wickham@gmail.com}
-}
 \seealso{
 \code{\link{dd_example}} for an easier way of loading example
   files
 }
+\author{
+Hadley Wickham \email{h.wickham@gmail.com}
+}
 \keyword{manip}
-

@@ -18,4 +18,3 @@ Compute valid R class name for given plot type
 Hadley Wickham \email{h.wickham@gmail.com}
 }
 \keyword{internal}
-

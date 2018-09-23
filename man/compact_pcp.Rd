@@ -20,4 +20,3 @@ compacts it back into one dataset.
 Hadley Wickham \email{h.wickham@gmail.com}
 }
 \keyword{internal}
-

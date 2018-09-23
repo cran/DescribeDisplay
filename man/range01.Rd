@@ -18,4 +18,3 @@ Divide the values of the objects by the range of values
 Hadley Wickham \email{h.wickham@gmail.com}
 }
 \keyword{internal}
-

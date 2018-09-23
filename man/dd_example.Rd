@@ -20,4 +20,3 @@ a <- dd_example("xyplot")
 Hadley Wickham \email{h.wickham@gmail.com}
 }
 \keyword{internal}
-

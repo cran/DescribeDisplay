@@ -33,4 +33,3 @@ This adds a rectangle to a ggplot plot indicating the brush position.
 Hadley Wickham \email{h.wickham@gmail.com}
 }
 \keyword{hplot}
-

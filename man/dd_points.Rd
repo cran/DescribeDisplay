@@ -23,4 +23,3 @@ Retrieves the describe display points data for the given plot number.
 Hadley Wickham \email{h.wickham@gmail.com}
 }
 \keyword{internal}
-

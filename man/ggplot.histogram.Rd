@@ -27,4 +27,3 @@ print(ggplot(dd_example("histogram")))
 Barret Schloerke \email{schloerke@gmail.com}
 }
 \keyword{hplot}
-

@@ -46,4 +46,3 @@ plot(dd_example("tour2d"))
 Hadley Wickham \email{h.wickham@gmail.com}
 }
 \keyword{internal}
-

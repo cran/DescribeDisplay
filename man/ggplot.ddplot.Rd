@@ -33,4 +33,3 @@ print(
 Hadley Wickham \email{h.wickham@gmail.com}
 }
 \keyword{hplot}
-

@@ -27,4 +27,3 @@ print(ggplot(dd_example("timeseries"), edges = TRUE))
 Barret Schloerke \email{schloerke@gmail.com}
 }
 \keyword{hplot}
-

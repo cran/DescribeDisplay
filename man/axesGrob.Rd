@@ -20,4 +20,3 @@ Construct grob for axes.
 Hadley Wickham \email{h.wickham@gmail.com}
 }
 \keyword{internal}
-

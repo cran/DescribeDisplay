@@ -20,4 +20,3 @@ Gather overall plot defaults for specified plot
 Hadley Wickham \email{h.wickham@gmail.com}
 }
 \keyword{internal}
-

@@ -26,4 +26,3 @@ print(ggplot(dd_example("barchart")))
 Barret Schloerke \email{schloerke@gmail.com}
 }
 \keyword{hplot}
-

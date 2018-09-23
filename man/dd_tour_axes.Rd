@@ -18,4 +18,3 @@ Return representation of axes for specified plot
 Hadley Wickham h.wickham [at] gmail.com
 }
 \keyword{internal}
-

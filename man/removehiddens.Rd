@@ -18,4 +18,3 @@ Will remove all hidden points from the plot.
 Hadley Wickham \email{h.wickham@gmail.com}
 }
 \keyword{manip}
-
