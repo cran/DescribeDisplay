@@ -46,8 +46,8 @@ compact_timeseries <- function(data){
 #' Create nice looking plots complete with axes using ggplot.  Produces graphics with a uniform x axis.
 #'
 #' @param data to display
-#' @param edges Boolean operator to tell whether to try to force the edges or not.  Will not work to remove the edges.
 #' @param ... (currently) unused arguments
+#' @param edges Boolean operator to tell whether to try to force the edges or not.  Will not work to remove the edges.
 #' @author Barret Schloerke \email{schloerke@@gmail.com}
 #' @keywords hplot
 #' @export
@@ -55,7 +55,7 @@ compact_timeseries <- function(data){
 #' library(ggplot2)
 #' print(ggplot(dd_example("timeseries")))
 #' print(ggplot(dd_example("timeseries"), edges = TRUE))
-ggplot.timeseries <- function(data, edges = FALSE, ...){
+ggplot.timeseries <- function(data, ..., edges = FALSE){
   #cat("\nggplot.timeseries\n")
 
   x <- y <- NULL

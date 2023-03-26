@@ -22,7 +22,7 @@
 #'
 #' A special ggplot2 geom for drawing the tour axes
 #'
-#' @param ... should include data, location, aes\_string information
+#' @param ... should include data, location, \code{aes_string} information
 #' @author Hadley Wickham \email{h.wickham@@gmail.com}
 #' @keywords internal
 #' @export

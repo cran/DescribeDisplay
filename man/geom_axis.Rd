@@ -7,7 +7,7 @@
 geom_axis(axis, location, ...)
 }
 \arguments{
-\item{...}{should include data, location, aes\_string information}
+\item{...}{should include data, location, \code{aes_string} information}
 }
 \description{
 A special ggplot2 geom for drawing the tour axes

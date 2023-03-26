@@ -2,8 +2,8 @@
 #' Create a nice looking plot complete with axes using ggplot.
 #'
 #' @param data plot to display, object created by \code{dd_load()}
-#' @param spine (not implemented currently) whether to display the barchart as a spine plot
 #' @param ... arguments passed through to the ggplot function
+#' @param spine (not implemented currently) whether to display the barchart as a spine plot
 #' @author Barret Schloerke \email{schloerke@@gmail.com}
 #' @keywords hplot
 #' @export
@@ -11,7 +11,7 @@
 #' library(ggplot2)
 #' print(ggplot(dd_example("barchart")))
 #' print(ggplot(dd_example("histogram")))
-ggplot.histogram <- function(data, spine = FALSE, ...) {
+ggplot.histogram <- function(data, ..., spine = FALSE) {
 #  cat("\nggplot.histogram\n")
 
   p <- ggplot(
@@ -54,15 +54,15 @@ ggplot.histogram <- function(data, spine = FALSE, ...) {
 #' Create a nice looking plot complete with axes using ggplot.
 #'
 #' @param data plot to display, object created by \code{dd_load()}
-#' @param spine (not implemented currently) whether to display the barchart as a spine plot
 #' @param ... arguments passed through to the ggplot function
+#' @param spine (not implemented currently) whether to display the barchart as a spine plot
 #' @author Barret Schloerke \email{schloerke@@gmail.com}
 #' @keywords hplot
 #' @export
 #' @examples
 #' library(ggplot2)
 #' print(ggplot(dd_example("barchart")))
-ggplot.barplot <- function(data, spine = FALSE, ...){
+ggplot.barplot <- function(data, ..., spine = FALSE){
 #  cat("\nggplot.barplot\n")
   levelnames <- data$params$levelnames
   levelNameOrder <- data$params$levelvalues + 1

@@ -38,10 +38,10 @@ range01 <- function(x) {
 #' Create a nice looking plot complete with axes using ggplot.
 #'
 #' @param data plot to display
+#' @param ... arguments passed to the grob function
 #' @param absoluteX make the sections proportional horizontally to eachother
 #' @param absoluteY make the sections proportional vertically to eachother
 #' @param edges boolean value to print edges.  Defaults to TRUE.
-#' @param ... arguments passed to the grob function
 #' @author Barret Schloerke \email{schloerke@@gmail.com}
 #' @keywords hplot
 #' @export
@@ -51,10 +51,10 @@ range01 <- function(x) {
 #' print(ggplot(dd_example("parcoord")))
 ggplot.parcoords <- function(
   data,
+  ...,
   absoluteX = FALSE,
   absoluteY = FALSE,
-  edges = TRUE,
-  ...
+  edges = TRUE
 ) {
   variable <- NULL
   x <- NULL

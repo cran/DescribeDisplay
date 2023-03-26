@@ -5,14 +5,14 @@
 \title{Create a nice plot for Histograms
 Create a nice looking plot complete with axes using ggplot.}
 \usage{
-\method{ggplot}{histogram}(data, spine = FALSE, ...)
+\method{ggplot}{histogram}(data, ..., spine = FALSE)
 }
 \arguments{
 \item{data}{plot to display, object created by \code{dd_load()}}
 
-\item{spine}{(not implemented currently) whether to display the barchart as a spine plot}
-
 \item{...}{arguments passed through to the ggplot function}
+
+\item{spine}{(not implemented currently) whether to display the barchart as a spine plot}
 }
 \description{
 Create a nice plot for Histograms

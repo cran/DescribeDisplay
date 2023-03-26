@@ -5,11 +5,19 @@
 \title{Plot a dd plot
 Convenient method to draw a single panel.}
 \usage{
-\method{plot}{ddplot}(x, ..., axislocation = c(0.1, 0.1), axis.gp = gpar(col
-  = "black"), background.color = "grey90")
+\method{plot}{ddplot}(
+  x,
+  y = NULL,
+  ...,
+  axislocation = c(0.1, 0.1),
+  axis.gp = gpar(col = "black"),
+  background.color = "grey90"
+)
 }
 \arguments{
 \item{x}{object to plot}
+
+\item{y}{NULL to satisfy generic functions and methods rules}
 
 \item{...}{(not used)}
 

@@ -5,19 +5,18 @@
 \title{Create a nice plot for parallel coordinates plot
 Create a nice looking plot complete with axes using ggplot.}
 \usage{
-\method{ggplot}{parcoords}(data, absoluteX = FALSE, absoluteY = FALSE,
-  edges = TRUE, ...)
+\method{ggplot}{parcoords}(data, ..., absoluteX = FALSE, absoluteY = FALSE, edges = TRUE)
 }
 \arguments{
 \item{data}{plot to display}
+
+\item{...}{arguments passed to the grob function}
 
 \item{absoluteX}{make the sections proportional horizontally to eachother}
 
 \item{absoluteY}{make the sections proportional vertically to eachother}
 
 \item{edges}{boolean value to print edges.  Defaults to TRUE.}
-
-\item{...}{arguments passed to the grob function}
 }
 \description{
 Create a nice plot for parallel coordinates plot
