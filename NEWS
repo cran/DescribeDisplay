@@ -1,3 +1,8 @@
+DescribeDisplay 0.2.10, 0.2.11
+---------------------
+
+* Use "@aliases DescribeDisplay-package" instead of @docType, requested by CRAN
+
 DescribeDisplay 0.2.8, 0.2.9
 ---------------------
 

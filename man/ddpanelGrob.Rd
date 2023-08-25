@@ -15,11 +15,11 @@ ddpanelGrob(
 \arguments{
 \item{panel}{describe display object}
 
+\item{axis.gp}{frame grob containing all panels, note that this does not contain the title or border}
+
 \item{background.color}{color of in the background of the plot}
 
 \item{axis}{location, x and y position}
-
-\item{axisgp}{frame grob containing all panels, note that this does not contain the title or border}
 }
 \description{
 Panel grob

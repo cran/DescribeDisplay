@@ -6,7 +6,7 @@
 #' @references
 #'   \url{http://ggobi.org}
 #'   \url{https://ggplot2.tidyverse.org}
-#' @docType package
+#' @aliases DescribeDisplay-package
 #' @import ggplot2
 #' @importFrom grid pointsGrob circleGrob segmentsGrob textGrob rectGrob linesGrob frameGrob placeGrob packGrob
 #' @importFrom grid gpar gTree gList vpPath viewport grid.layout grid.newpage grid.draw pushViewport popViewport dataViewport

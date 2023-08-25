@@ -1,8 +1,8 @@
-c07ae916b4bfd71ab36b663903720b20 *DESCRIPTION
+a6f1adf3678c0f483e4031fc765a3f92 *DESCRIPTION
 c7f9105835ed1e1709712c326b8b3af3 *LICENSE
 feaedca8b6b0379a357ff5aafb0a44aa *NAMESPACE
-dfa57619794915dceb5e51adf694b486 *NEWS
-e9f8e338a090ec6d2544dfef6585c610 *R/DescribeDisplay-package.R
+b3d8c94723f00300dd36952182a141cb *NEWS
+7b6a214c5279713d3f5f791aab3622c8 *R/DescribeDisplay-package.R
 aacf15afc7ae09d8adefe495297bf2a9 *R/axis-geom.R
 e1fd13dc76f6bdb30a0dd5eaee55a95c *R/axis-grob.R
 02712520e2e38a234ce880437190743f *R/data.R
@@ -11,7 +11,7 @@ b56edb5aa7e424f69ae30a9dc0cad0eb *R/ggplot-barchart.R
 69afcdc2e034cbb2ac3333b438e5956c *R/ggplot-scatmat.R
 babf6239545ce2eddb1ef44342291b31 *R/ggplot-timeseries.R
 0ae358744a275258009126e79c79f4b1 *R/ggplot.R
-617fffc1a8903cae0d7f5b4f98577191 *R/plots.R
+592d89c413d9b336061cb5b70a2e94ed *R/plots.R
 215eb08a556cee5127902a38fc3bb8cd *R/utils.R
 aae1e24215abb079bafb8db14e11d773 *inst/examples/barchart.R
 ab32ecab40b44bdd90ab70a960c5e0ad *inst/examples/histogram.R
@@ -37,8 +37,8 @@ bc88234208eeb62ed2f07ad99af2a089 *man/dd_load.Rd
 eb25c059a831bb1652bcdf61f6539115 *man/dd_plot_class.Rd
 55975e908d582bcdcf67fe8474acb54c *man/dd_points.Rd
 a9b1580fae321540c53eb30a90ecead9 *man/dd_tour_axes.Rd
-b0b73618c81f73198072813ef2767e9e *man/ddpanelGrob.Rd
-bef1832845593f5d319beee788ca1e7e *man/describedisplayreshape.Rd
+3b529424cb32554f232632cf50e9ea34 *man/ddpanelGrob.Rd
+4ddf1b0486e5d0fede651a2eebc7f168 *man/describedisplayreshape.Rd
 d762d963998bee212f9412d3992f8e40 *man/geom_axis.Rd
 c624e8c18056c674a88826a0a8fb3e05 *man/ggplot.barplot.Rd
 9b62663a44e3ffc39793b1c35e5f92da *man/ggplot.dd.Rd

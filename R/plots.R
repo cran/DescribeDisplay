@@ -121,7 +121,7 @@ plot.ddplot <- function(
 #'
 #' @param panel describe display object
 #' @param axis location, x and y position
-#' @param axisgp frame grob containing all panels, note that this does not contain the title or border
+#' @param axis.gp frame grob containing all panels, note that this does not contain the title or border
 #' @param background.color color of in the background of the plot
 #' @author Hadley Wickham \email{h.wickham@@gmail.com}
 #' @keywords internal
